@@ -1,0 +1,8 @@
+# Maven
+target/
+bin/
+out/
+
+# IntelliJ IDEA
+.idea/
+*.iml
