@@ -3,10 +3,12 @@ package com.vvalentim.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import java.util.function.Function;
+
+import java.io.IOException;
 
 public class ClientController {
-    private Function<String, String> handlerSubmit;
+    private final String hostname = "127.0.0.1";
+    private final int port = 3000;
 
     @FXML
     private TextArea messageInput;
@@ -15,7 +17,7 @@ public class ClientController {
     private TextArea messageOutput;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         this.messageOutput.setEditable(false);
     }
 
@@ -24,13 +26,5 @@ public class ClientController {
         String message = this.messageInput.getText();
 
         this.messageInput.setText("");
-
-        if (this.handlerSubmit != null) {
-            this.messageOutput.appendText("RESPONSE: " + this.handlerSubmit.apply(message) + "\n");
-        }
-    }
-
-    public void setSubmitHandler(Function<String, String> handler) {
-        this.handlerSubmit = handler;
     }
 }

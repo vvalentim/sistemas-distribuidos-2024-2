@@ -1,6 +1,6 @@
 package com.vvalentim.helpers;
 
-import com.vvalentim.Main;
+import com.vvalentim.ClientGUI;
 
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,7 @@ public class View<T> {
     private final Class<T> type;
 
     public View(String filename, Class<T> type) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource(dir + filename + ".fxml"));
+        FXMLLoader loader = new FXMLLoader(ClientGUI.class.getResource(dir + filename + ".fxml"));
 
         this.node = loader.load();
         this.controller = loader.getController();

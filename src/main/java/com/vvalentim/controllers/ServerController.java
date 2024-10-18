@@ -21,4 +21,8 @@ public class ServerController {
 
         return message;
     }
+
+    public void closeSocket() {
+
+    }
 }
