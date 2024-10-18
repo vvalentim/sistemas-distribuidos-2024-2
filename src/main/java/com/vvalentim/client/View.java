@@ -1,6 +1,4 @@
-package com.vvalentim.helpers;
-
-import com.vvalentim.ClientGUI;
+package com.vvalentim.client;
 
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;

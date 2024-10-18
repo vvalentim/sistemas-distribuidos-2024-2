@@ -3,9 +3,11 @@ module com.vvalentim {
     requires javafx.fxml;
     requires transitive javafx.graphics;
 
-    opens com.vvalentim to javafx.fxml;
-    opens com.vvalentim.controllers to javafx.fxml;
+    exports com.vvalentim.client;
+    opens com.vvalentim.client to javafx.fxml;
 
-    exports com.vvalentim;
-    exports com.vvalentim.controllers;
+    exports com.vvalentim.client.controllers;
+    opens com.vvalentim.client.controllers to javafx.fxml;
+
+    exports com.vvalentim.server;
 }

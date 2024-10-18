@@ -1,4 +1,4 @@
-package com.vvalentim;
+package com.vvalentim.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;

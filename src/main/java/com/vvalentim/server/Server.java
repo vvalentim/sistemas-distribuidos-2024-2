@@ -1,11 +1,10 @@
-package com.vvalentim;
-
-import com.vvalentim.helpers.ConnectionHandler;
+package com.vvalentim.server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Server extends Thread {
     private final String hostname;
@@ -35,7 +34,7 @@ public class Server extends Thread {
             this.isRunning = true;
 
             System.out.println(this.socket.toString());
-            System.out.println("Server listening on " + this.hostname + ":"  + this.port + "...");
+            System.out.println("Server listening on " + this.hostname + ":" + this.port + "...");
 
             while (this.isRunning) {
                 System.out.println("Waiting for new connection...");
@@ -49,12 +48,26 @@ public class Server extends Thread {
                 handler.start();
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            if (!(e instanceof SocketException)) {
+                throw new RuntimeException(e);
+            }
+
+            System.out.println("Server socket has been closed.");
         }
     }
 
-    public void close() throws IOException {
-        this.isRunning = false;
-        this.socket.close();
+    public void close() throws RuntimeException {
+        try {
+            this.isRunning = false;
+            this.socket.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void main(String[] args) {
+        Server server = new Server();
+
+        server.start();
     }
 }
