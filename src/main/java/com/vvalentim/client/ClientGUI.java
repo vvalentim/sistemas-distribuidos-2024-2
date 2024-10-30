@@ -1,19 +1,20 @@
 package com.vvalentim.client;
 
+import com.vvalentim.client.controllers.LoginController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import com.vvalentim.client.controllers.ClientController;
+import com.vvalentim.client.controllers.EchoController;
 
 public class ClientGUI extends Application {
     private static ConnectionHandler connectionHandler;
 
     private static Stage stage;
 
-    private static View<ClientController> view;
+    private static View<LoginController> view;
 
     private static Scene scene;
 
@@ -23,11 +24,11 @@ public class ClientGUI extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        ClientGUI.connectionHandler = new ConnectionHandler();
+//        ClientGUI.connectionHandler = new ConnectionHandler("192.168.1.103", 5200);
 
         ClientGUI.stage = stage;
-        ClientGUI.view = new View<ClientController>("client", ClientController.class);
-        ClientGUI.scene = new Scene(ClientGUI.view.getNode(), 480, 480);
+        ClientGUI.view = new View<LoginController>("login", LoginController.class);
+        ClientGUI.scene = new Scene(ClientGUI.view.getNode(), 300, 300);
 
         ClientGUI.stage.setTitle("Client");
         ClientGUI.stage.setScene(ClientGUI.scene);

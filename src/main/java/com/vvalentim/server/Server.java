@@ -66,7 +66,7 @@ public class Server extends Thread {
     }
 
     public static void main(String[] args) {
-        Server server = new Server();
+        Server server = new Server("192.168.1.103", 5200);
 
         server.start();
     }

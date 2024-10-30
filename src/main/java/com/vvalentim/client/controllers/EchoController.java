@@ -9,7 +9,7 @@ import javafx.scene.control.TextArea;
 
 import java.io.IOException;
 
-public class ClientController {
+public class EchoController {
     private MessageService messageService;
 
     @FXML
