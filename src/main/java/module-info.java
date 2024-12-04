@@ -7,11 +7,20 @@ module com.vvalentim {
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
 
+    requires MaterialFX;
+    requires VirtualizedFX;
+
     exports com.vvalentim.client;
-    opens com.vvalentim.client to javafx.fxml;
-
     exports com.vvalentim.client.controllers;
-    opens com.vvalentim.client.controllers to javafx.fxml;
-
+    exports com.vvalentim.exceptions;
     exports com.vvalentim.server;
+    exports com.vvalentim.server.commands;
+    exports com.vvalentim.protocol.request;
+    exports com.vvalentim.protocol.request.authentication;
+    exports com.vvalentim.protocol.response;
+    exports com.vvalentim.protocol.response.authentication;
+    exports com.vvalentim.protocol.response.errors;
+
+    opens com.vvalentim.client;
+    opens com.vvalentim.client.controllers;
 }

@@ -1,8 +1,9 @@
 package com.vvalentim.client;
 
-import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
+import java.io.IOException;
 
 public class View<T> {
     private static final String dir = "views/";

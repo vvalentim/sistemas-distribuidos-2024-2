@@ -7,8 +7,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import com.vvalentim.client.controllers.EchoController;
-
 public class ClientGUI extends Application {
     private static ConnectionHandler connectionHandler;
 
