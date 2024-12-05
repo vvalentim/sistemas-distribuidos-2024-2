@@ -32,8 +32,6 @@ final public class LoginCommand extends Command {
             return;
         }
 
-        db.listAllUsers();
-
         result = new ResponseLogin(user.getUsername());
     }
 }

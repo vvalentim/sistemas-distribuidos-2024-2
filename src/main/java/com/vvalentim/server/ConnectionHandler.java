@@ -66,11 +66,11 @@ public class ConnectionHandler extends Thread {
     public void run() {
         try {
             for (String message = this.input.readLine(); message != null; message = this.input.readLine()) {
-                System.out.println("SERVER RECEIVED FROM [" + this.client + "]: " + message);
+                System.out.println("SERVER RECEIVED FROM [" + this.client + "] <- " + message);
 
                 String response = parseRequest(message);
 
-                System.out.println("SERVER SENT TO [" + this.client + "]: " + response);
+                System.out.println("SERVER SENT TO [" + this.client + "] -> " + response);
 
                 this.output.println(response);
             }

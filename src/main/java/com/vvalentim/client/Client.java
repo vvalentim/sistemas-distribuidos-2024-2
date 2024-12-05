@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class Client {
     private static final String hostname = "127.0.0.1";
-    private static final int port = 5200;
+    private static final int port = 20000;
 
     private static Socket socket;
     private static PrintWriter output;
@@ -38,6 +38,7 @@ public class Client {
                 }
 
                 output.println(userInput);
+                System.out.println("CLIENT SENT -> " + userInput);
 
                 String response = input.readLine();
 
@@ -45,7 +46,7 @@ public class Client {
                     break;
                 }
 
-                System.out.println(response);
+                System.out.println("CLIENT RECEIVED <- " + response);
             }
 
             stdInput.close();

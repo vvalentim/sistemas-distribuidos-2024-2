@@ -25,12 +25,12 @@ public class MessageParser {
             requestType = RequestType.getFromKey(key);
 
             if (requestType == null) {
-                throw new RequestTypeNotSupported("Operação '" + key + "' não encontrada.", key);
+                throw new RequestTypeNotSupported("Request type '" + key + "' not found.", key);
             }
 
             return (RequestPayload) MessageParser.mapper.convertValue(root, requestType.payloadType);
         } catch (JsonProcessingException | NullPointerException e) {
-            throw new UnprocessableContentException("Não foi possível processar o conteúdo (JSON) da requisição.");
+            throw new UnprocessableContentException();
         }
     }
 

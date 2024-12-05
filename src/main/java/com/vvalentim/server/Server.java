@@ -81,12 +81,10 @@ public class Server extends Thread {
     }
 
     public static void main(String[] args) {
-        // Server server = new Server("192.168.1.107", 5200);
         MemoryDatabase db = MemoryDatabase.getInstance();
 
-        db.listAllUsers();
-
-        Server server = new Server();
+        Server server = new Server("127.0.0.1", 20000);
+        // Server server = new Server();
         server.start();
     }
 }

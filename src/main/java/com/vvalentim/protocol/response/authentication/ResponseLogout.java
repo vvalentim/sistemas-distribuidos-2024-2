@@ -6,6 +6,6 @@ import com.vvalentim.protocol.response.ResponseStatus;
 
 public class ResponseLogout extends ResponsePayload {
     public ResponseLogout() {
-        super(ResponseStatus.OK, RequestType.LOGOUT.jsonKey);
+        super(ResponseStatus.OK, null);
     }
 }
