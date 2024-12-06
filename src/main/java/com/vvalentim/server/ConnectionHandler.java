@@ -1,10 +1,12 @@
 package com.vvalentim.server;
 
+import com.vvalentim.exceptions.InvalidPayloadFieldType;
 import com.vvalentim.exceptions.RequestTypeNotSupported;
 import com.vvalentim.exceptions.UnprocessableContentException;
 import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.protocol.response.ResponsePayload;
+import com.vvalentim.protocol.response.errors.ResponseFailedValidation;
 import com.vvalentim.protocol.response.errors.ResponseInvalidOperation;
 import com.vvalentim.protocol.response.errors.ResponseUnprocessableContent;
 import com.vvalentim.server.commands.Command;
@@ -55,6 +57,10 @@ public class ConnectionHandler extends Thread {
             this.printProtocolException(e.getMessage());
 
             responseObject = new ResponseInvalidOperation(e.requestType);
+        } catch (InvalidPayloadFieldType e) {
+            this.printProtocolException(e.getMessage());
+            
+            responseObject = new ResponseFailedValidation(e.requestType);
         } finally {
             response = parser.serialize(responseObject);
         }

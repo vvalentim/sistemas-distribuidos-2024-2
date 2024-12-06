@@ -38,6 +38,7 @@ public class Client {
                 }
 
                 output.println(userInput);
+
                 System.out.println("CLIENT SENT -> " + userInput);
 
                 String response = input.readLine();
