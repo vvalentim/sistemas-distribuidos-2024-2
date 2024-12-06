@@ -6,6 +6,7 @@ import com.vvalentim.protocol.response.ResponsePayload;
 import com.vvalentim.protocol.response.ResponseStatus;
 
 public class ResponseLogin extends ResponsePayload {
+    @JsonProperty("token")
     public final String token;
 
     public ResponseLogin(

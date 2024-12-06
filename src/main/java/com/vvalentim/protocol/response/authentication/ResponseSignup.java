@@ -6,6 +6,7 @@ import com.vvalentim.protocol.response.ResponsePayload;
 import com.vvalentim.protocol.response.ResponseStatus;
 
 public class ResponseSignup extends ResponsePayload {
+    @JsonProperty("mensagem")
     public final String message;
 
     public ResponseSignup(
