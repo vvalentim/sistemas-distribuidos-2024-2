@@ -13,7 +13,7 @@ public class MemoryDatabase {
     private MemoryDatabase() {
         this.users = new HashMap<>();
 
-        this.users.put("admin", new User("Administrador", "admin", "admin"));
+        this.users.put("2099284", new User("JOAO VICTOR VALENTIM", "2099284", "administrador"));
     }
 
     public synchronized static MemoryDatabase getInstance() {
