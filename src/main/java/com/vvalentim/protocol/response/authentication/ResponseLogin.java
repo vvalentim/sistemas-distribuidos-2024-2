@@ -12,7 +12,7 @@ public class ResponseLogin extends ResponsePayload {
     public ResponseLogin(
         @JsonProperty("token") String token
     ) {
-        super(ResponseStatus.OK, RequestType.LOGIN.jsonKey);
+        super(ResponseStatus.OK, null);
 
         this.token = token;
     }
