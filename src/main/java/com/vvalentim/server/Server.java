@@ -1,5 +1,6 @@
 package com.vvalentim.server;
 
+import com.vvalentim.helpers.AddressPromptHelper;
 import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.server.commands.authentication.LoginCommand;
 import com.vvalentim.server.commands.authentication.LogoutCommand;
@@ -7,10 +8,7 @@ import com.vvalentim.server.commands.authentication.SignupCommand;
 import com.vvalentim.server.database.MemoryDatabase;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 
 public class Server extends Thread {
     private final String hostname;
@@ -80,11 +78,11 @@ public class Server extends Thread {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         MemoryDatabase db = MemoryDatabase.getInstance();
+        AddressPromptHelper addrHelper = new AddressPromptHelper();
 
-        Server server = new Server("127.0.0.1", 20000);
-        // Server server = new Server();
+        Server server = new Server(addrHelper.getAddress(), addrHelper.getPort());
         server.start();
     }
 }

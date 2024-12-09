@@ -1,5 +1,7 @@
 package com.vvalentim.client;
 
+import com.vvalentim.helpers.AddressPromptHelper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,17 +9,15 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Client {
-    private static final String hostname = "127.0.0.1";
-    private static final int port = 20000;
-
     private static Socket socket;
     private static PrintWriter output;
     private static BufferedReader input;
 
-
     public static void main(String[] args) {
         try {
-            socket = new Socket(hostname, port);
+            AddressPromptHelper addrHelper = new AddressPromptHelper();
+
+            socket = new Socket(addrHelper.getAddress(), addrHelper.getPort());
             output = new PrintWriter(socket.getOutputStream(), true);
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 

@@ -6,6 +6,7 @@ module com.vvalentim {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
+    requires com.google.common;
 
     requires MaterialFX;
     requires VirtualizedFX;
