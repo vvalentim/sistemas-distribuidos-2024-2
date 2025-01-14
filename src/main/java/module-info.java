@@ -11,6 +11,7 @@ module com.vvalentim {
     requires MaterialFX;
     requires VirtualizedFX;
 
+    exports com.vvalentim.models;
     exports com.vvalentim.client;
     exports com.vvalentim.client.controllers;
     exports com.vvalentim.exceptions;
@@ -21,6 +22,8 @@ module com.vvalentim {
     exports com.vvalentim.protocol.response;
     exports com.vvalentim.protocol.response.authentication;
     exports com.vvalentim.protocol.response.errors;
+    exports com.vvalentim.protocol.request.users;
+    exports com.vvalentim.protocol.response.users;
 
     opens com.vvalentim.client;
     opens com.vvalentim.client.controllers;

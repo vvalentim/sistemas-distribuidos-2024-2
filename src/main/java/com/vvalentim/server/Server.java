@@ -4,7 +4,8 @@ import com.vvalentim.helpers.AddressPromptHelper;
 import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.server.commands.authentication.LoginCommand;
 import com.vvalentim.server.commands.authentication.LogoutCommand;
-import com.vvalentim.server.commands.authentication.SignupCommand;
+import com.vvalentim.server.commands.users.UserCreateCommand;
+import com.vvalentim.server.commands.users.UserListCommand;
 import com.vvalentim.server.database.MemoryDatabase;
 
 import java.io.IOException;
@@ -32,7 +33,9 @@ public class Server extends Thread {
 
         this.requestCommandFactory.addCommand(RequestType.LOGIN, LoginCommand.class);
         this.requestCommandFactory.addCommand(RequestType.LOGOUT, LogoutCommand.class);
-        this.requestCommandFactory.addCommand(RequestType.USER_SIGNUP, SignupCommand.class);
+
+        this.requestCommandFactory.addCommand(RequestType.USER_CREATE, UserCreateCommand.class);
+        this.requestCommandFactory.addCommand(RequestType.USER_LIST, UserListCommand.class);
     }
 
     @Override
@@ -82,7 +85,8 @@ public class Server extends Thread {
         MemoryDatabase db = MemoryDatabase.getInstance();
         AddressPromptHelper addrHelper = new AddressPromptHelper();
 
-        Server server = new Server(addrHelper.getAddress(), addrHelper.getPort());
+        Server server = new Server();
+        // Server server = new Server(addrHelper.getAddress(), addrHelper.getPort());
         server.start();
     }
 }

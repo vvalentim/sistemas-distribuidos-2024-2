@@ -1,26 +1,26 @@
-package com.vvalentim.server.commands.authentication;
+package com.vvalentim.server.commands.users;
 
 import com.vvalentim.models.User;
 import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
-import com.vvalentim.protocol.request.authentication.RequestUserSignup;
-import com.vvalentim.protocol.response.authentication.ResponseSignup;
+import com.vvalentim.protocol.request.users.RequestUserCreate;
+import com.vvalentim.protocol.response.users.ResponseUserCreated;
 import com.vvalentim.protocol.response.errors.ResponseFailedValidation;
 import com.vvalentim.protocol.response.errors.ResponseUserAlreadyExists;
 import com.vvalentim.server.commands.Command;
 import com.vvalentim.server.database.MemoryDatabase;
 
-final public class SignupCommand extends Command {
-    private final RequestUserSignup payload;
+final public class UserCreateCommand extends Command {
+    private final RequestUserCreate payload;
 
-    public SignupCommand(RequestPayload requestPayload) throws ClassCastException {
-        this.payload = (RequestUserSignup) requestPayload;
+    public UserCreateCommand(RequestPayload requestPayload) throws ClassCastException {
+        this.payload = (RequestUserCreate) requestPayload;
     }
 
     @Override
     public void execute() {
-        if (!payload.validate()) {
-            result = new ResponseFailedValidation(RequestType.USER_SIGNUP.jsonKey);
+        if (payload.isInvalid()) {
+            this.result = new ResponseFailedValidation(RequestType.USER_CREATE.jsonKey);
             return;
         }
 
@@ -28,7 +28,7 @@ final public class SignupCommand extends Command {
         User user = db.findUser(payload.username);
 
         if (user != null) {
-            result = new ResponseUserAlreadyExists();
+            this.result = new ResponseUserAlreadyExists();
             return;
         }
 
@@ -36,6 +36,6 @@ final public class SignupCommand extends Command {
 
         db.insertUser(user);
 
-        result = new ResponseSignup("Cadastro realizado com sucesso.");
+        this.result = new ResponseUserCreated("Cadastro realizado com sucesso.");
     }
 }

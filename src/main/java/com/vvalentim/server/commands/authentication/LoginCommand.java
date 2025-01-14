@@ -7,6 +7,7 @@ import com.vvalentim.protocol.request.authentication.RequestLogin;
 import com.vvalentim.protocol.response.authentication.ResponseLogin;
 import com.vvalentim.protocol.response.errors.ResponseFailedValidation;
 import com.vvalentim.protocol.response.errors.ResponseIncorrectCredentials;
+import com.vvalentim.protocol.response.errors.ResponseUserAlreadyLoggedIn;
 import com.vvalentim.server.commands.Command;
 import com.vvalentim.server.database.MemoryDatabase;
 
@@ -19,8 +20,8 @@ final public class LoginCommand extends Command {
 
     @Override
     public void execute() {
-        if (!payload.validate()) {
-            result = new ResponseFailedValidation(RequestType.LOGIN.jsonKey);
+        if (payload.isInvalid()) {
+            this.result = new ResponseFailedValidation(RequestType.LOGIN.jsonKey);
             return;
         }
 
@@ -28,10 +29,15 @@ final public class LoginCommand extends Command {
         User user = db.findUser(payload.username);
 
         if (user == null || !user.getPassword().equals(payload.password)) {
-            result = new ResponseIncorrectCredentials();
+            this.result = new ResponseIncorrectCredentials();
             return;
         }
 
-        result = new ResponseLogin(user.getUsername());
+        if (!db.login(payload.username)) {
+            this.result = new ResponseUserAlreadyLoggedIn(RequestType.LOGIN.jsonKey);
+            return;
+        }
+
+        this.result = new ResponseLogin(user.getUsername());
     }
 }

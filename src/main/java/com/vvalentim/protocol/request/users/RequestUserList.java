@@ -1,23 +1,24 @@
-package com.vvalentim.protocol.request.authentication;
+package com.vvalentim.protocol.request.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vvalentim.models.User;
 import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 
-final public class RequestLogout extends RequestPayload {
+public class RequestUserList extends RequestPayload {
     public final String token;
 
-    public RequestLogout(
+    public RequestUserList(
         @JsonProperty("token") String token
     ) {
-        super(RequestType.LOGOUT);
+        super(RequestType.USER_LIST);
 
         this.token = token;
     }
 
     @Override
     public String toString() {
-        return "RequestLogout{" +
+        return "RequestUserList{" +
                 "token='" + token + '\'' +
                 ", requestType='" + requestType + '\'' +
                 '}';
@@ -25,6 +26,6 @@ final public class RequestLogout extends RequestPayload {
 
     @Override
     public boolean isValid() {
-        return true;
+        return User.validateUsername(token);
     }
 }

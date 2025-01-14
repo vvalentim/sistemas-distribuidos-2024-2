@@ -1,5 +1,7 @@
 package com.vvalentim.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
     private String name;
     private String username;
@@ -11,6 +13,7 @@ public class User {
         this.password = password;
     }
 
+    @JsonProperty("nome")
     public String getName() {
         return name;
     }
@@ -19,6 +22,7 @@ public class User {
         this.name = name;
     }
 
+    @JsonProperty("ra")
     public String getUsername() {
         return username;
     }
@@ -27,6 +31,7 @@ public class User {
         this.username = username;
     }
 
+    @JsonProperty("senha")
     public String getPassword() {
         return password;
     }

@@ -1,21 +1,21 @@
-package com.vvalentim.protocol.request.authentication;
+package com.vvalentim.protocol.request.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vvalentim.models.User;
 import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 
-final public class RequestUserSignup extends RequestPayload {
+final public class RequestUserCreate extends RequestPayload {
     public final String name;
     public final String username;
     public final String password;
 
-    public RequestUserSignup(
+    public RequestUserCreate(
         @JsonProperty("nome") String name,
         @JsonProperty("ra") String username,
         @JsonProperty("senha") String password
     ) {
-        super(RequestType.USER_SIGNUP);
+        super(RequestType.USER_CREATE);
 
         this.name = name;
         this.username = username;
@@ -24,7 +24,7 @@ final public class RequestUserSignup extends RequestPayload {
 
     @Override
     public String toString() {
-        return "RequestUserSignup{" +
+        return "RequestUserCreate{" +
                 "name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
@@ -33,7 +33,7 @@ final public class RequestUserSignup extends RequestPayload {
     }
 
     @Override
-    public boolean validate() {
+    public boolean isValid() {
         return
                 User.validateName(name) &&
                 User.validateUsername(username) &&

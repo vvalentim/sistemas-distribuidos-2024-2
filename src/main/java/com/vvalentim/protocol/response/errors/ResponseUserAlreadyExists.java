@@ -10,7 +10,7 @@ public class ResponseUserAlreadyExists extends ResponsePayload {
     public final String message;
 
     public ResponseUserAlreadyExists() {
-        super(ResponseStatus.UNAUTHORIZED, RequestType.USER_SIGNUP.jsonKey);
+        super(ResponseStatus.UNAUTHORIZED, RequestType.USER_CREATE.jsonKey);
 
         this.message = ErrorType.USER_ALREADY_EXISTS.message;
     }

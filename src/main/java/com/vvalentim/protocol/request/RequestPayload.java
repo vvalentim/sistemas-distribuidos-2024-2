@@ -10,5 +10,9 @@ abstract public class RequestPayload {
         this.requestType = requestType.jsonKey;
     }
 
-    public abstract boolean validate();
+    public abstract boolean isValid();
+
+    final public boolean isInvalid() {
+        return !this.isValid();
+    }
 }

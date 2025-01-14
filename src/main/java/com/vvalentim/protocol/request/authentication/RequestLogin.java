@@ -29,7 +29,7 @@ final public class RequestLogin extends RequestPayload {
     }
 
     @Override
-    public boolean validate() {
+    public boolean isValid() {
         return User.validateUsername(username) && User.validatePassword(password);
     }
 }

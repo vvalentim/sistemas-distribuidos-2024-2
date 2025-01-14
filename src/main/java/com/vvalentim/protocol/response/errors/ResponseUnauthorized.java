@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vvalentim.protocol.response.ResponsePayload;
 import com.vvalentim.protocol.response.ResponseStatus;
 
-public class ResponseInvalidOperation extends ResponsePayload {
+public class ResponseUnauthorized extends ResponsePayload {
     @JsonProperty("mensagem")
     public final String message;
 
-    public ResponseInvalidOperation(String requestType) {
-        super(ResponseStatus.UNAUTHORIZED, null);
+    public ResponseUnauthorized(String requestType) {
+        super(ResponseStatus.UNAUTHORIZED, requestType);
 
-        this.message = ErrorType.INVALID_OPERATION.message;
+        this.message = ErrorType.UNAUTHORIZED.message;
     }
 }

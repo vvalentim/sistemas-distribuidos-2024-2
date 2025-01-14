@@ -2,41 +2,89 @@ package com.vvalentim.server.database;
 
 import com.vvalentim.models.User;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class MemoryDatabase {
-    private static MemoryDatabase instance = null;
-
-    private final Map<String, User> users;
+    private final ConcurrentHashMap<String, User> users;
+    private final CopyOnWriteArraySet<String> superUsers;
+    private final ConcurrentSkipListSet<String> onlineUsers;
 
     private MemoryDatabase() {
-        this.users = new HashMap<>();
+        this.users = new ConcurrentHashMap<>();
+        this.superUsers = new CopyOnWriteArraySet<>();
+        this.onlineUsers = new ConcurrentSkipListSet<>();
 
-        this.users.put("2099284", new User("JOAO VICTOR VALENTIM", "2099284", "administrador"));
+        this.insertSuperUser(new User("JOAO VICTOR VALENTIM", "2099284", "administrador"));
+        this.insertUser(new User("FULANO DA SILVA", "1234567", "abcabcab"));
+        this.insertUser(new User("CICLANO SOUZA", "0000000", "senhaciclano"));
     }
 
-    public synchronized static MemoryDatabase getInstance() {
-        if (instance == null) {
-            instance = new MemoryDatabase();
-        }
-
-        return instance;
+    private static class LazyHolder {
+        public static final MemoryDatabase INSTANCE = new MemoryDatabase();
     }
 
-    public synchronized User findUser(String username) {
-        return users.get(username);
+    /**
+     * <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/jsr-133-faq.html">Initialization On Demand Holder idiom</a>
+     */
+    public static MemoryDatabase getInstance() {
+        return LazyHolder.INSTANCE;
     }
 
-    public synchronized void insertUser(User user) {
+    /* Start USER methods */
+    public User findUser(String username) {
+        return this.users.get(username);
+    }
+
+    public List<User> fetchAllUsers() {
+        List<User> users = new ArrayList<>(this.users.values());
+
+        return Collections.unmodifiableList(users);
+    }
+
+    public List<String> fetchOnlineUsers() {
+        List<String> users = new ArrayList<>(this.onlineUsers);
+
+        return Collections.unmodifiableList(users);
+    }
+
+    public void insertUser(User user) {
         this.users.put(user.getUsername(), user);
     }
 
-    public synchronized void listAllUsers() {
-        System.out.println("-- LIST USERS --");
-        this.users.forEach((key, user) -> {
-            System.out.println("user: " + user.getUsername());
-        });
-        System.out.println("-- END LIST USERS --");
+    public void insertSuperUser(User user) {
+        this.insertUser(user);
+        this.superUsers.add(user.getUsername());
     }
+
+    public void updateUser(User user) {
+        this.users.replace(user.getUsername(), user);
+    }
+
+    public void deleteUser(String username) {
+        this.users.remove(username);
+        this.superUsers.removeIf(key -> key.equals(username));
+        this.onlineUsers.removeIf(key -> key.equals(username));
+    }
+
+    public boolean isSuperUser(String username) {
+        return this.superUsers.contains(username);
+    }
+
+    public boolean isOnline(String username) {
+        return this.onlineUsers.contains(username);
+    }
+
+    public boolean login(String username) {
+        return this.onlineUsers.add(username);
+    }
+
+    public boolean logout(String username) {
+        return this.onlineUsers.removeIf(key -> key.equals(username));
+    }
+    /* End USER methods */
 }

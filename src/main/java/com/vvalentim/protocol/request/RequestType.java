@@ -2,12 +2,17 @@ package com.vvalentim.protocol.request;
 
 import com.vvalentim.protocol.request.authentication.RequestLogin;
 import com.vvalentim.protocol.request.authentication.RequestLogout;
-import com.vvalentim.protocol.request.authentication.RequestUserSignup;
+import com.vvalentim.protocol.request.users.*;
 
 public enum RequestType {
     LOGIN("login", RequestLogin.class),
     LOGOUT("logout", RequestLogout.class),
-    USER_SIGNUP("cadastrarUsuario", RequestUserSignup.class);
+
+    USER_CREATE("cadastrarUsuario", RequestUserCreate.class),
+    USER_LIST("listarUsuarios", RequestUserList.class),
+    USER_FIND("localizarUsuario", RequestUserFind.class),
+    USER_EDIT("editarUsuario", RequestUserUpdate.class),
+    USER_DELETE("excluirUsuario", RequestUserDelete.class);
 
     public final String jsonKey;
     public final Class<?> payloadType;
