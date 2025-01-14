@@ -7,6 +7,7 @@ public enum ErrorType {
     UNAUTHORIZED("Acesso não autorizado."),
     USER_ALREADY_EXISTS("Não foi possível cadastrar pois o usuário informado já existe."),
     USER_ALREADY_LOGGED_IN("O usuário já está logado."),
+    USER_NOT_FOUND("Usuário não encontrado."),
     INCORRECT_CREDENTIALS("Credenciais incorretas.");
 
     public final String message;

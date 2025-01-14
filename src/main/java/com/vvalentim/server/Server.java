@@ -5,6 +5,7 @@ import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.server.commands.authentication.LoginCommand;
 import com.vvalentim.server.commands.authentication.LogoutCommand;
 import com.vvalentim.server.commands.users.UserCreateCommand;
+import com.vvalentim.server.commands.users.UserFindCommand;
 import com.vvalentim.server.commands.users.UserListCommand;
 import com.vvalentim.server.database.MemoryDatabase;
 
@@ -36,6 +37,7 @@ public class Server extends Thread {
 
         this.requestCommandFactory.addCommand(RequestType.USER_CREATE, UserCreateCommand.class);
         this.requestCommandFactory.addCommand(RequestType.USER_LIST, UserListCommand.class);
+        this.requestCommandFactory.addCommand(RequestType.USER_FIND, UserFindCommand.class);
     }
 
     @Override

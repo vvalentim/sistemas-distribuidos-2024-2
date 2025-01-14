@@ -1,7 +1,6 @@
 package com.vvalentim.protocol.response.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.vvalentim.models.User;
 import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.protocol.response.ResponsePayload;
