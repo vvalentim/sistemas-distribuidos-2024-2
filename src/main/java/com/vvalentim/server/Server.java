@@ -4,9 +4,7 @@ import com.vvalentim.helpers.AddressPromptHelper;
 import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.server.commands.authentication.LoginCommand;
 import com.vvalentim.server.commands.authentication.LogoutCommand;
-import com.vvalentim.server.commands.users.UserCreateCommand;
-import com.vvalentim.server.commands.users.UserFindCommand;
-import com.vvalentim.server.commands.users.UserListCommand;
+import com.vvalentim.server.commands.users.*;
 import com.vvalentim.server.database.MemoryDatabase;
 
 import java.io.IOException;
@@ -38,6 +36,8 @@ public class Server extends Thread {
         this.requestCommandFactory.addCommand(RequestType.USER_CREATE, UserCreateCommand.class);
         this.requestCommandFactory.addCommand(RequestType.USER_LIST, UserListCommand.class);
         this.requestCommandFactory.addCommand(RequestType.USER_FIND, UserFindCommand.class);
+        this.requestCommandFactory.addCommand(RequestType.USER_UPDATE, UserUpdateCommand.class);
+        this.requestCommandFactory.addCommand(RequestType.USER_DELETE, UserDeleteCommand.class);
     }
 
     @Override

@@ -7,7 +7,11 @@ public class User {
     private String username;
     private String password;
 
-    public User(String name, String username, String password) {
+    public User(
+        @JsonProperty("nome") String name,
+        @JsonProperty("ra") String username,
+        @JsonProperty("senha") String password
+    ) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -57,5 +61,14 @@ public class User {
                 password.length() >= 8 &&
                 password.length() <= 20 &&
                 password.matches("[a-zA-Z]+");
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

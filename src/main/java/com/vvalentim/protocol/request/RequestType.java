@@ -11,7 +11,7 @@ public enum RequestType {
     USER_CREATE("cadastrarUsuario", RequestUserCreate.class),
     USER_LIST("listarUsuarios", RequestUserList.class),
     USER_FIND("localizarUsuario", RequestUserFind.class),
-    USER_EDIT("editarUsuario", RequestUserUpdate.class),
+    USER_UPDATE("editarUsuario", RequestUserUpdate.class),
     USER_DELETE("excluirUsuario", RequestUserDelete.class);
 
     public final String jsonKey;
