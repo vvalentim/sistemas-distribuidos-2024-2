@@ -30,6 +30,11 @@ public class MemoryDatabase {
 
         this.notificationCategorySerialId = new AtomicInteger(1);
         this.notificationCategories = new ConcurrentHashMap<>();
+
+        this.saveNotificationCategory(new NotificationCategory("CLIMA"));
+        this.saveNotificationCategory(new NotificationCategory("ESPORTES"));
+        this.saveNotificationCategory(new NotificationCategory("CELEBRIDADES"));
+        this.saveNotificationCategory(new NotificationCategory("POLITICA"));
     }
 
     private static class LazyHolder {

@@ -6,6 +6,10 @@ public class NotificationCategory {
     private int id;
     private String name;
 
+    public NotificationCategory(String name) {
+        this(0, name);
+    }
+
     public NotificationCategory(
         @JsonProperty("id") int id,
         @JsonProperty("nome") String name
