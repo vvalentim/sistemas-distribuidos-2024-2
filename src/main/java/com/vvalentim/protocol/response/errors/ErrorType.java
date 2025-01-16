@@ -8,7 +8,8 @@ public enum ErrorType {
     USER_ALREADY_EXISTS("Não foi possível cadastrar pois o usuário informado já existe."),
     USER_ALREADY_LOGGED_IN("O usuário já está logado."),
     USER_NOT_FOUND("Usuário não encontrado."),
-    INCORRECT_CREDENTIALS("Credenciais incorretas.");
+    INCORRECT_CREDENTIALS("Credenciais incorretas."),
+    NOTIFICATION_CATEGORY_NOT_FOUND("Categoria não encontrada.");
 
     public final String message;
 

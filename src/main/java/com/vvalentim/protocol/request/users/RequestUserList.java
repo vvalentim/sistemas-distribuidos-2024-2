@@ -26,6 +26,7 @@ public class RequestUserList extends RequestPayload {
 
     @Override
     public boolean isValid() {
-        return User.validateUsername(token);
+        // return User.validateUsername(token);
+        return true;
     }
 }

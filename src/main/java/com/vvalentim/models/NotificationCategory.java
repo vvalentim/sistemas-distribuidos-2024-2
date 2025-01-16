@@ -40,10 +40,21 @@ public class NotificationCategory {
         return id > -1;
     }
 
+    public static boolean validateExistingId(int id) {
+        return id > 0;
+    }
+
     public static boolean validateName(String name) {
         return name != null &&
                 name.length() <= 50 &&
                 name.matches("[A-Z ]+");
     }
 
+    @Override
+    public String toString() {
+        return "NotificationCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

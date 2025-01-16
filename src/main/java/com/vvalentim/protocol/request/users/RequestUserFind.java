@@ -33,6 +33,7 @@ public class RequestUserFind extends RequestPayload {
 
     @Override
     public boolean isValid() {
-        return User.validateUsername(this.token);
+        // return User.validateUsername(this.token);
+        return true;
     }
 }

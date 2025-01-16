@@ -19,11 +19,14 @@ module com.vvalentim {
     exports com.vvalentim.server.commands;
     exports com.vvalentim.protocol.request;
     exports com.vvalentim.protocol.request.authentication;
+    exports com.vvalentim.protocol.request.users;
+    exports com.vvalentim.protocol.request.notificationCategories;
+
     exports com.vvalentim.protocol.response;
     exports com.vvalentim.protocol.response.authentication;
-    exports com.vvalentim.protocol.response.errors;
-    exports com.vvalentim.protocol.request.users;
     exports com.vvalentim.protocol.response.users;
+    exports com.vvalentim.protocol.response.notificationCategories;
+    exports com.vvalentim.protocol.response.errors;
 
     opens com.vvalentim.client;
     opens com.vvalentim.client.controllers;

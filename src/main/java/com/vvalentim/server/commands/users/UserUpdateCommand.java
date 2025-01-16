@@ -28,8 +28,8 @@ public class UserUpdateCommand extends Command {
         }
 
         MemoryDatabase db = MemoryDatabase.getInstance();
-        boolean isSuperUser = db.isSuperUser(payload.token);
         boolean isOnline = db.isOnline(payload.token);
+        boolean isSuperUser = db.isSuperUser(payload.token);
 
         if (
             !isOnline ||

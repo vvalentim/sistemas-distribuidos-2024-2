@@ -2,6 +2,10 @@ package com.vvalentim.protocol.request;
 
 import com.vvalentim.protocol.request.authentication.RequestLogin;
 import com.vvalentim.protocol.request.authentication.RequestLogout;
+import com.vvalentim.protocol.request.notificationCategories.RequestNotificationCategoryDelete;
+import com.vvalentim.protocol.request.notificationCategories.RequestNotificationCategoryFind;
+import com.vvalentim.protocol.request.notificationCategories.RequestNotificationCategoryList;
+import com.vvalentim.protocol.request.notificationCategories.RequestNotificationCategorySave;
 import com.vvalentim.protocol.request.users.*;
 
 public enum RequestType {
@@ -12,7 +16,12 @@ public enum RequestType {
     USER_LIST("listarUsuarios", RequestUserList.class),
     USER_FIND("localizarUsuario", RequestUserFind.class),
     USER_UPDATE("editarUsuario", RequestUserUpdate.class),
-    USER_DELETE("excluirUsuario", RequestUserDelete.class);
+    USER_DELETE("excluirUsuario", RequestUserDelete.class),
+
+    NOTIFICATION_CATEGORY_SAVE("salvarCategoria", RequestNotificationCategorySave.class),
+    NOTIFICATION_CATEGORY_LIST("listarCategorias", RequestNotificationCategoryList.class),
+    NOTIFICATION_CATEGORY_FIND("localizarCategoria", RequestNotificationCategoryFind.class),
+    NOTIFICATION_CATEGORY_DELETE("excluirCategoria", RequestNotificationCategoryDelete.class);
 
     public final String jsonKey;
     public final Class<?> payloadType;

@@ -40,6 +40,7 @@ public class ConnectionHandler extends Thread {
         MessageParser parser = new MessageParser();
         ResponsePayload responseObject = null;
         String response;
+        Exception exception = null;
 
         try {
             RequestPayload requestPayload = parser.deserialize(requestMessage);
@@ -52,16 +53,26 @@ public class ConnectionHandler extends Thread {
         } catch (UnprocessableContentException e) {
             this.printProtocolException(e.getMessage());
 
+            exception = e;
+
             responseObject = new ResponseUnprocessableContent();
         } catch (RequestTypeNotSupported e) {
             this.printProtocolException(e.getMessage());
 
+            exception = e;
+
             responseObject = new ResponseInvalidOperation(e.requestType);
         } catch (InvalidPayloadFieldType e) {
             this.printProtocolException(e.getMessage());
+
+            exception = e;
             
             responseObject = new ResponseFailedValidation(e.requestType);
         } finally {
+            if (Server.DEBUG && exception != null) {
+                exception.printStackTrace();
+            }
+
             response = parser.serialize(responseObject);
         }
 
