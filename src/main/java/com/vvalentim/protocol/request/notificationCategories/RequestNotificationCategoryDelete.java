@@ -25,6 +25,8 @@ public class RequestNotificationCategoryDelete extends RequestPayload {
 
     @Override
     public boolean isValid() {
-        return true;
+        return
+                User.validateUsername(this.token) &&
+                NotificationCategory.validateExistingId(this.categoryId);
     }
 }

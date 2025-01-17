@@ -16,7 +16,7 @@ public class MemoryDatabase {
     private final CopyOnWriteArraySet<String> superUsers;
     private final ConcurrentSkipListSet<String> onlineUsers;
 
-    private AtomicInteger notificationCategorySerialId;
+    private final AtomicInteger notificationCategorySerialId;
     private final ConcurrentHashMap<Integer, NotificationCategory> notificationCategories;
 
     private MemoryDatabase() {

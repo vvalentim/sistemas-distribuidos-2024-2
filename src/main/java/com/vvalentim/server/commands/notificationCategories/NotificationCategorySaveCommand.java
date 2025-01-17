@@ -28,8 +28,9 @@ public class NotificationCategorySaveCommand extends Command {
 
         MemoryDatabase db = MemoryDatabase.getInstance();
         boolean isOnline = db.isOnline(this.payload.token);
+        boolean isSuperUser = db.isSuperUser(this.payload.token);
 
-        if (!isOnline) {
+        if (!isOnline || !isSuperUser) {
             this.result = new ResponseUnauthorized(RequestType.NOTIFICATION_CATEGORY_SAVE.jsonKey);
             return;
         }

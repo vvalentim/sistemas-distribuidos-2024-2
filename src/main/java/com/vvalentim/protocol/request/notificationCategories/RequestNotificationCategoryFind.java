@@ -25,7 +25,8 @@ public class RequestNotificationCategoryFind extends RequestPayload {
 
     @Override
     public boolean isValid() {
-        // return NotificationCategory.validateExistingId(this.categoryId);
-        return true;
+        return
+                User.validateUsername(this.token) &&
+                NotificationCategory.validateExistingId(this.categoryId);
     }
 }

@@ -33,7 +33,8 @@ public class RequestUserDelete extends RequestPayload {
 
     @Override
     public boolean isValid() {
-        // return User.validateUsername(this.token);
-        return true;
+        return
+                User.validateUsername(this.token) &&
+                User.validateUsername(this.username);
     }
 }

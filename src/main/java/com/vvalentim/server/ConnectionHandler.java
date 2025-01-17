@@ -68,6 +68,10 @@ public class ConnectionHandler extends Thread {
             exception = e;
             
             responseObject = new ResponseFailedValidation(e.requestType);
+        } catch (Exception e) {
+            exception = e;
+
+            responseObject = new ResponseUnprocessableContent();
         } finally {
             if (Server.DEBUG && exception != null) {
                 exception.printStackTrace();

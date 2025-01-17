@@ -37,6 +37,7 @@ public class RequestUserUpdate extends RequestPayload {
         }
 
         return
+                User.validateUsername(this.token) &&
                 User.validateUsername(this.user.getUsername()) &&
                 User.validatePassword(this.user.getPassword()) &&
                 User.validateName(this.user.getName());

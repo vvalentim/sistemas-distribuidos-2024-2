@@ -4,6 +4,7 @@ import com.vvalentim.models.User;
 import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.protocol.request.users.RequestUserList;
+import com.vvalentim.protocol.response.errors.ResponseFailedValidation;
 import com.vvalentim.protocol.response.errors.ResponseUnauthorized;
 import com.vvalentim.protocol.response.users.ResponseUserList;
 import com.vvalentim.server.commands.Command;
@@ -20,7 +21,7 @@ final public class UserListCommand extends Command {
     public void execute() {
         /* Check if the token has a valid "username" format */
         if (payload.isInvalid()) {
-            this.result = new ResponseUnauthorized(RequestType.USER_LIST.jsonKey);
+            this.result = new ResponseFailedValidation(RequestType.USER_LIST.jsonKey);
             return;
         }
 

@@ -5,6 +5,7 @@ import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.protocol.request.users.RequestUserDelete;
 import com.vvalentim.protocol.response.errors.ErrorType;
+import com.vvalentim.protocol.response.errors.ResponseFailedValidation;
 import com.vvalentim.protocol.response.errors.ResponseResourceNotFound;
 import com.vvalentim.protocol.response.errors.ResponseUnauthorized;
 import com.vvalentim.protocol.response.users.ResponseUserDeleted;
@@ -21,7 +22,7 @@ public class UserDeleteCommand extends Command {
     @Override
     public void execute() {
         if (payload.isInvalid()) {
-            this.result = new ResponseUnauthorized(RequestType.USER_DELETE.jsonKey);
+            this.result = new ResponseFailedValidation(RequestType.USER_DELETE.jsonKey);
             return;
         }
 

@@ -30,6 +30,7 @@ public class RequestNotificationCategorySave extends RequestPayload {
         }
 
         return
+                User.validateUsername(this.token) &&
                 NotificationCategory.validateId(this.category.getId()) &&
                 NotificationCategory.validateName(this.category.getName());
     }

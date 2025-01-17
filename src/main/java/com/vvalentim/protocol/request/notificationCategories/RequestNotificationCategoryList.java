@@ -19,6 +19,6 @@ public class RequestNotificationCategoryList extends RequestPayload {
 
     @Override
     public boolean isValid() {
-        return true;
+        return User.validateUsername(this.token);
     }
 }
