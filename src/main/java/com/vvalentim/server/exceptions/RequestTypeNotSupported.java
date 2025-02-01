@@ -1,4 +1,4 @@
-package com.vvalentim.exceptions;
+package com.vvalentim.server.exceptions;
 
 public class RequestTypeNotSupported extends Exception {
     public final String requestType;

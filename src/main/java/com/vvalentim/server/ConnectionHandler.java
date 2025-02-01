@@ -1,8 +1,8 @@
 package com.vvalentim.server;
 
-import com.vvalentim.exceptions.InvalidPayloadFieldType;
-import com.vvalentim.exceptions.RequestTypeNotSupported;
-import com.vvalentim.exceptions.UnprocessableContentException;
+import com.vvalentim.server.exceptions.InvalidPayloadFieldType;
+import com.vvalentim.server.exceptions.RequestTypeNotSupported;
+import com.vvalentim.server.exceptions.UnprocessableContentException;
 import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.protocol.response.ResponsePayload;

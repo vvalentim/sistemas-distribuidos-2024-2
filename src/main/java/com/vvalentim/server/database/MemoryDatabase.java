@@ -97,7 +97,7 @@ public class MemoryDatabase {
     }
 
     public boolean logout(String username) {
-        return this.onlineUsers.removeIf(key -> key.equals(username));
+        return this.onlineUsers.remove(username);
     }
     /* End USER methods */
 

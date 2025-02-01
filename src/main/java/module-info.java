@@ -8,15 +8,14 @@ module com.vvalentim {
     requires com.fasterxml.jackson.databind;
     requires com.google.common;
 
-    requires MaterialFX;
-    requires VirtualizedFX;
-
     exports com.vvalentim.models;
+
     exports com.vvalentim.client;
-    exports com.vvalentim.client.controllers;
-    exports com.vvalentim.exceptions;
+
     exports com.vvalentim.server;
+    exports com.vvalentim.server.exceptions;
     exports com.vvalentim.server.commands;
+
     exports com.vvalentim.protocol.request;
     exports com.vvalentim.protocol.request.authentication;
     exports com.vvalentim.protocol.request.users;
@@ -28,6 +27,8 @@ module com.vvalentim {
     exports com.vvalentim.protocol.response.notificationCategories;
     exports com.vvalentim.protocol.response.errors;
 
-    opens com.vvalentim.client;
-    opens com.vvalentim.client.controllers;
+    // exports com.vvalentim.gui.controllers;
+
+    // opens com.vvalentim.gui;
+    // opens com.vvalentim.gui.controllers;
 }
