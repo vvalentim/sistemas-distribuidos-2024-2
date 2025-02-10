@@ -6,7 +6,9 @@ import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 
 final public class RequestLogin extends RequestPayload {
+    @JsonProperty("ra")
     public final String username;
+    @JsonProperty("senha")
     public final String password;
 
     public RequestLogin(

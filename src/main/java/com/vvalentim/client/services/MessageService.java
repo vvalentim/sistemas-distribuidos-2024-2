@@ -21,9 +21,13 @@ public class MessageService extends Service<String> {
         return new Task<String>() {
             @Override
             protected String call() throws Exception {
+                System.out.println("CLIENT SENT -> " + clientMessage);
                 handler.sendMessage(clientMessage);
 
-                return handler.getResponse();
+                String response = handler.getResponse();
+                System.out.println("CLIENT RECEIVED <- " + response);
+
+                return response;
             }
         };
     }

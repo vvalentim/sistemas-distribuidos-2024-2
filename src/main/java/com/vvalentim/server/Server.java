@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.*;
 
 public class Server extends Thread {
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     private final String hostname;
 
@@ -74,7 +74,7 @@ public class Server extends Thread {
 
                 handler.start();
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             if (!(e instanceof SocketException)) {
                 throw new RuntimeException(e);
             }
@@ -98,8 +98,8 @@ public class Server extends Thread {
         MemoryDatabase db = MemoryDatabase.getInstance();
         AddressPromptHelper addrHelper = new AddressPromptHelper();
 
-        Server server = new Server();
-        // Server server = new Server(addrHelper.getAddress(), addrHelper.getPort());
+        // Server server = new Server();
+        Server server = new Server(addrHelper.getAddress(), addrHelper.getPort());
         server.start();
     }
 }

@@ -8,6 +8,11 @@ module com.vvalentim {
     requires com.fasterxml.jackson.databind;
     requires com.google.common;
 
+    requires atlantafx.base;
+    requires org.kordamp.ikonli.core;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.materialdesign2;
+
     exports com.vvalentim.models;
 
     exports com.vvalentim.client;
@@ -27,8 +32,7 @@ module com.vvalentim {
     exports com.vvalentim.protocol.response.notificationCategories;
     exports com.vvalentim.protocol.response.errors;
 
-    // exports com.vvalentim.gui.controllers;
+    exports com.vvalentim.gui;
 
-    // opens com.vvalentim.gui;
-    // opens com.vvalentim.gui.controllers;
+    opens com.vvalentim.gui;
 }

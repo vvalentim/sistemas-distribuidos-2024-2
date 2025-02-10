@@ -16,4 +16,13 @@ public class ResponseUserFound extends ResponsePayload {
         super(ResponseStatus.CREATED, RequestType.USER_FIND.jsonKey);
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseUserFound{" +
+                "user=" + user +
+                ", status=" + status +
+                ", requestType='" + requestType + '\'' +
+                '}';
+    }
 }

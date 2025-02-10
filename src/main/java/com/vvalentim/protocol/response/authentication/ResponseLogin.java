@@ -16,4 +16,13 @@ public class ResponseLogin extends ResponsePayload {
 
         this.token = token;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseLogin{" +
+                "token='" + token + '\'' +
+                ", status=" + status +
+                ", requestType='" + requestType + '\'' +
+                '}';
+    }
 }
