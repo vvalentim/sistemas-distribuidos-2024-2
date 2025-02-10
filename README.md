@@ -6,7 +6,7 @@ Os pacotes *server* e *client* possuem as classes principais para inicializaçã
 
 Verifique se todas as dependências estão instaladas antes de executar o projeto.
 
-A classe *ClientGUI* ainda não está funcional, portanto utilize a classe *Client* para execução do cliente na primeira entrega do projeto.
+O pacote *gui* ainda não está funcional, portanto utilize a classe *Client* para execução do cliente na segunda entrega do projeto.
 
 # Como funciona
 
@@ -37,6 +37,46 @@ De acordo com o protocolo, segue o formato em JSON para os diferentes tipos de r
 ```
 {"operacao": "logout", "token": "2099284"}
 ```
+
+### Busca por usuário
+```
+{"operacao": "localizarUsuario", "token": "2099284", "ra": "2099284"}
+```
+
+### Edição de usuário
+```
+{"operacao": "editarUsuario", "token": "2099284", "usuario": {"ra": "2099284", "senha": "abcabcabc", "nome": "NOME TESTE"}}
+```
+
+### Listagem de usuários (APENAS ADMIN)
+```
+{"operacao": "listarUsuarios", "token": "2099284"}
+```
+
+### Exclusão de usuário
+```
+{"operacao": "excluirUsuario", "token": "2099284", "ra": "2099284"}
+```
+
+### Listagem de categorias
+```
+{"operacao": "listarCategorias", "token": "2099284"}
+```
+
+### Salvar categoria (APENAS ADMIN)
+```
+{"operacao": "salvarCategoria", "token": "2099284", "categoria": {"id": "0", "nome": "ECONOMIA"}}
+```
+### Localizar categoria 
+```
+{"operacao": "localizarCategoria", "token": "2099284", "id": 1}
+```
+
+### Exclusão de categoria (APENAS ADMIN)
+```
+{"operacao": "excluirCategoria", "token": "2099284", "id": 1}
+```
+
 
 ## Configuração e ambiente de desenvolvimento
 
