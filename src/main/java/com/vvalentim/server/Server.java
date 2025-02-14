@@ -98,8 +98,8 @@ public class Server extends Thread {
         MemoryDatabase db = MemoryDatabase.getInstance();
         AddressPromptHelper addrHelper = new AddressPromptHelper();
 
-        // Server server = new Server();
-        Server server = new Server(addrHelper.getAddress(), addrHelper.getPort());
+        Server server = new Server();
+        // Server server = new Server(addrHelper.getAddress(), addrHelper.getPort());
         server.start();
     }
 }

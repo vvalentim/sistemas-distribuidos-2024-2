@@ -1,12 +1,10 @@
 package com.vvalentim.gui;
 
 import atlantafx.base.theme.PrimerLight;
-import com.vvalentim.gui.pages.ClientConnectionPage;
-import com.vvalentim.gui.pages.HomePage;
+import com.vvalentim.gui.layout.MainLayer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ClientLauncher extends Application {
@@ -14,15 +12,14 @@ public class ClientLauncher extends Application {
     public void start(Stage stage) {
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
 
-        StackPane mainLayer = new StackPane(new ClientConnectionPage());
+        MainLayer root = new MainLayer();
 
-        Scene scene = new Scene(mainLayer, 540, 420);
+        Scene scene = new Scene(root.getPane(), 800, 640);
         stage.setScene(scene);
+        stage.setTitle("EP3 - Sistemas Distribuídos");
         stage.setOnCloseRequest(t -> Platform.exit());
 
         stage.setResizable(false);
-        stage.setWidth(800);
-        stage.setHeight(640);
 
         Platform.runLater(() -> {
             stage.show();

@@ -12,6 +12,7 @@ public class ConnectionHandler {
     private PrintWriter output;
     private BufferedReader input;
     private boolean isOpen = false;
+    private String token;
 
     private ConnectionHandler() {}
 
@@ -67,7 +68,6 @@ public class ConnectionHandler {
         return this.isOpen;
     }
 
-    /** TODO: verificar se a conexão com o socket/streams ainda está ativa antes de enviar ou receber mensagem **/
     public void sendMessage(String message) {
         if (message != null) {
             this.output.println(message);
@@ -78,5 +78,13 @@ public class ConnectionHandler {
         String response = this.input.readLine();
 
         return response != null ? response : "";
+    }
+
+    public synchronized String getToken() {
+        return this.token;
+    }
+
+    public synchronized void setToken(String token) {
+        this.token = token;
     }
 }

@@ -24,6 +24,8 @@ public class MessageService extends Service<String> {
                 System.out.println("CLIENT SENT -> " + clientMessage);
                 handler.sendMessage(clientMessage);
 
+                Thread.sleep(500);
+
                 String response = handler.getResponse();
                 System.out.println("CLIENT RECEIVED <- " + response);
 

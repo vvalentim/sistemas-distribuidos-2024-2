@@ -4,9 +4,12 @@ import atlantafx.base.theme.Styles;
 import com.vvalentim.client.ConnectionHandler;
 import com.vvalentim.client.MessageParser;
 import com.vvalentim.client.services.MessageService;
+import com.vvalentim.gui.layout.ErrorAlert;
+import com.vvalentim.models.User;
 import com.vvalentim.protocol.request.authentication.RequestLogin;
 import com.vvalentim.protocol.response.ResponsePayload;
 import com.vvalentim.protocol.response.authentication.ResponseLogin;
+import com.vvalentim.protocol.response.errors.ResponseGenericError;
 import javafx.concurrent.Worker;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,10 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class LoginPage extends AbstractPage {
-    public static final String TITLE = "Login";
-
     private MessageParser parser;
-
     private MessageService loginService;
 
     @Override
@@ -36,7 +36,7 @@ public class LoginPage extends AbstractPage {
     }
 
     @Override
-    protected void init() {
+    public void init() {
         this.parser = new MessageParser();
         this.loginService = new MessageService(ConnectionHandler.getInstance());
 
@@ -45,16 +45,26 @@ public class LoginPage extends AbstractPage {
             ResponsePayload payload = parser.deserialize(response, ResponseLogin.class);
 
             if (payload instanceof ResponseLogin) {
-                // System.out.println("SUCCESS!");
-                this.changePage(Page.HOME_PAGE);
-            } else {
-                // System.out.println("ERROR!");
+                ResponseLogin loginPayload = (ResponseLogin) payload;
+                ConnectionHandler.getInstance().setToken(loginPayload.token);
+                this.changePage(Page.MANAGE_USER_PAGE);
+                return;
             }
+
+            ResponseGenericError errorPayload = (ResponseGenericError) payload;
+            ErrorAlert alert = new ErrorAlert(errorPayload.message);
+            alert.showAndWait();
+            this.hideLoadingOverlay();
+        });
+
+        this.loginService.setOnFailed(event -> {
+            System.out.println("Login service failed.");
+            this.hideLoadingOverlay();
         });
     }
 
     private VBox createFields() {
-        var title = new Text(LoginPage.TITLE);
+        var title = new Text("Login");
         title.getStyleClass().addAll(Styles.TITLE_1, Styles.TEXT_BOLD);
 
         var labelUsername = new Label("RA do usuário");
@@ -76,9 +86,8 @@ public class LoginPage extends AbstractPage {
     }
 
     private Button createLoginButton(TextField username, PasswordField password) {
-        var btnLogin = new Button("_Entrar");
+        var btnLogin = new Button("Entrar");
         btnLogin.setDefaultButton(true);
-        btnLogin.setMnemonicParsing(true);
 
         btnLogin.setOnMouseClicked(event -> this.attemptLogin(username.getText(), password.getText()));
 
@@ -86,7 +95,7 @@ public class LoginPage extends AbstractPage {
     }
 
     private Button createSigninButton() {
-        var btnSignup = new Button("_Cadastrar-se");
+        var btnSignup = new Button("Cadastrar-se");
 
         btnSignup.setOnMouseClicked(event -> this.changePage(Page.SIGNUP_PAGE));
 
@@ -95,6 +104,12 @@ public class LoginPage extends AbstractPage {
 
     private void attemptLogin(String username, String password) {
         if (this.loginService.isRunning()) {
+            return;
+        }
+
+        if (!User.validateUsername(username) || !User.validatePassword(password)) {
+            ErrorAlert alert = new ErrorAlert("RA ou senha inválidos.");
+            alert.showAndWait();
             return;
         }
 
@@ -107,8 +122,8 @@ public class LoginPage extends AbstractPage {
             String payload = this.parser.serialize(loginRequest);
 
             this.loginService.setClientMessage(payload);
-
             this.loginService.start();
+            this.showLoadingOverlay();
         } catch (Exception e) {
             e.printStackTrace();
         }

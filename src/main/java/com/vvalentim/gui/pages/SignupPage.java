@@ -4,8 +4,12 @@ import atlantafx.base.theme.Styles;
 import com.vvalentim.client.ConnectionHandler;
 import com.vvalentim.client.MessageParser;
 import com.vvalentim.client.services.MessageService;
+import com.vvalentim.gui.layout.ErrorAlert;
+import com.vvalentim.gui.layout.InfoAlert;
+import com.vvalentim.models.User;
 import com.vvalentim.protocol.request.users.RequestUserCreate;
 import com.vvalentim.protocol.response.ResponsePayload;
+import com.vvalentim.protocol.response.errors.ResponseGenericError;
 import com.vvalentim.protocol.response.users.ResponseUserCreated;
 import javafx.concurrent.Worker;
 import javafx.geometry.Insets;
@@ -18,10 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class SignupPage extends AbstractPage {
-    public static final String TITLE = "Cadastro";
-
     private MessageParser parser;
-
     private MessageService signupService;
 
     @Override
@@ -36,7 +37,7 @@ public class SignupPage extends AbstractPage {
     }
 
     @Override
-    protected void init() {
+    public void init() {
         this.parser = new MessageParser();
         this.signupService = new MessageService(ConnectionHandler.getInstance());
 
@@ -45,22 +46,28 @@ public class SignupPage extends AbstractPage {
             ResponsePayload payload = parser.deserialize(response, ResponseUserCreated.class);
 
             if (payload instanceof ResponseUserCreated) {
-                // System.out.println("SUCCESS!");
+                ResponseUserCreated signupPayload = (ResponseUserCreated) payload;
+                InfoAlert alert = new InfoAlert(signupPayload.message);
+                alert.showAndWait();
                 this.changePage(Page.LOGIN_PAGE);
-            } else {
-                // System.out.println("ERROR!");
+                return;
             }
+
+            ResponseGenericError errorPayload = (ResponseGenericError) payload;
+            ErrorAlert alert = new ErrorAlert(errorPayload.message);
+            alert.showAndWait();
+            this.hideLoadingOverlay();
         });
     }
 
     private VBox createFields() {
-        var title = new Text(SignupPage.TITLE);
+        var title = new Text("Cadastro");
         title.getStyleClass().addAll(Styles.TITLE_1, Styles.TEXT_BOLD);
 
         var labelName = new Label("Nome");
         var nameField = new TextField();
         nameField.setPrefWidth(200);
-        nameField.setPromptText("1234567");
+        nameField.setPromptText("NOME");
         var group1 = new VBox(labelName, nameField);
 
         var labelUsername = new Label("RA do usuário");
@@ -75,42 +82,58 @@ public class SignupPage extends AbstractPage {
         var group3 = new VBox(labelPasswordField, passwordField);
 
         var btnSignup = this.createSignupButton(nameField, usernameField, passwordField);
+        var btnCancel = new Button("Voltar");
 
-        return new VBox(25, title, group1, group2, group3, btnSignup);
+        btnCancel.setOnMouseClicked(event -> {
+            this.changePage(Page.LOGIN_PAGE);
+        });
+
+        return new VBox(25, title, group1, group2, group3, btnSignup, btnCancel);
     }
 
     private Button createSignupButton(
-        TextField name,
-        TextField username,
-        PasswordField password
+        TextField nameField,
+        TextField usernameField,
+        PasswordField passwordField
     ) {
-        var btnSignup = new Button("_Cadastrar-se");
+        var btnSignup = new Button("Cadastrar-se");
         btnSignup.setDefaultButton(true);
-        btnSignup.setMnemonicParsing(true);
 
-        btnSignup.setOnMouseClicked(event -> this.attemptSignup(name.getText(), username.getText(), password.getText()));
+        btnSignup.setOnMouseClicked(event -> {
+            String name = nameField.getText();
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+
+            if (this.signupService.isRunning()) {
+                return;
+            }
+
+            if (
+                !User.validateName(name) ||
+                !User.validateUsername(username) ||
+                !User.validatePassword(password)
+            ) {
+                ErrorAlert alert = new ErrorAlert("Dados inválidos.");
+                alert.showAndWait();
+                return;
+            }
+
+            if (this.signupService.getState() != Worker.State.READY) {
+                this.signupService.reset();
+            }
+
+            try {
+                RequestUserCreate signupRequest = new RequestUserCreate(name, username, password);
+                String payload = this.parser.serialize(signupRequest);
+
+                this.signupService.setClientMessage(payload);
+                this.signupService.start();
+                this.showLoadingOverlay();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         return btnSignup;
-    }
-
-    private void attemptSignup(String name, String username, String password) {
-        if (this.signupService.isRunning()) {
-            return;
-        }
-
-        if (this.signupService.getState() != Worker.State.READY) {
-            this.signupService.reset();
-        }
-
-        try {
-            RequestUserCreate signupRequest = new RequestUserCreate(name, username, password);
-            String payload = this.parser.serialize(signupRequest);
-
-            this.signupService.setClientMessage(payload);
-
-            this.signupService.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

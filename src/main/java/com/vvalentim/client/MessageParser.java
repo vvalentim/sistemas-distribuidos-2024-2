@@ -31,11 +31,11 @@ public class MessageParser {
             if (status > 199 && status < 300) {
                 payload = (ResponsePayload) MessageParser.mapper.convertValue(root, expectedResponse);
             } else {
-                payload = (ResponsePayload) MessageParser.mapper.convertValue(root, ResponseGenericError.class);
+                payload = MessageParser.mapper.convertValue(root, ResponseGenericError.class);
             }
 
         } catch (Exception e) {
-            System.out.println("Uh oh: " + e.getMessage());
+            System.out.println("Parsing error: " + e.getMessage());
         }
 
         return payload;
