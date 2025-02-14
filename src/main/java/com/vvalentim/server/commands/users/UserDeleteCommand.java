@@ -45,6 +45,12 @@ public class UserDeleteCommand extends Command {
             return;
         }
 
+        /* Não permitir exclusão de super usuário */
+        if (db.isSuperUser(user.getUsername())) {
+            this.result = new ResponseUnauthorized(RequestType.USER_DELETE.jsonKey);
+            return;
+        }
+
         db.deleteUser(payload.username);
 
         this.result = new ResponseUserDeleted("Exclusão realizada com sucesso.");

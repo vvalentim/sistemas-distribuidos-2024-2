@@ -37,6 +37,9 @@ public class LoginPage extends AbstractPage {
 
     @Override
     public void init() {
+        /* Resetar o token em caso de logout ou exclusão do usuário. */
+        ConnectionHandler.getInstance().setToken(null);
+
         this.parser = new MessageParser();
         this.loginService = new MessageService(ConnectionHandler.getInstance());
 
