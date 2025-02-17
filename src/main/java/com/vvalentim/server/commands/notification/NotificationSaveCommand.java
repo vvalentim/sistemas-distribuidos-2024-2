@@ -52,6 +52,13 @@ public class NotificationSaveCommand extends Command {
                 this.result = new ResponseResourceNotFound(RequestType.NOTIFICATION_SAVE, ErrorType.NOTIFICATION_NOT_FOUND);
                 return;
             }
+
+            notification = new Notification(
+                payload.notification.id,
+                category,
+                payload.notification.title,
+                payload.notification.description
+            );
         } else {
             notification = new Notification(
               category,

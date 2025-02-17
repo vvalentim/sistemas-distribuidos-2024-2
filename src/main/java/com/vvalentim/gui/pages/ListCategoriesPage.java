@@ -30,7 +30,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class ListCategoriesPage extends AbstractPage {
     private MessageParser parser;
@@ -41,6 +40,8 @@ public class ListCategoriesPage extends AbstractPage {
 
     private ObservableList<NotificationCategory> categories;
     private ListView<NotificationCategory> categoriesListView;
+
+    /* TODO: update notification category */
 
     public NotificationCategory getSelectedCategory() {
         return this.categoriesListView.getSelectionModel().getSelectedItem();
@@ -253,6 +254,8 @@ public class ListCategoriesPage extends AbstractPage {
 
     private HBox createBodyWrapper() {
         this.addSidebarNavButton("Meu cadastro", Page.MANAGE_USER_PAGE);
+        this.addSidebarNavButton("Meus avisos", Page.LIST_MY_NOTIFICATIONS_PAGE);
+        this.addSidebarNavButton("Avisos", Page.LIST_NOTIFICATIONS_PAGE);
         this.addSidebarNavButton("Categorias", Page.LIST_CATEGORIES_PAGE);
 
         return new HBox(15, createSidebar(), createContent());
@@ -392,8 +395,8 @@ public class ListCategoriesPage extends AbstractPage {
                 return;
             }
 
-            categoryNameLabel.setText(category.getName());
-            setGraphic(root);
+            this.categoryNameLabel.setText(category.getName());
+            setGraphic(this.root);
         }
     }
 }

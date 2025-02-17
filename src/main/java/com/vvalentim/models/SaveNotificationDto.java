@@ -3,9 +3,16 @@ package com.vvalentim.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SaveNotificationDto {
+    @JsonProperty("id")
     public final int id;
+
+    @JsonProperty("categoria")
     public final int categoryId;
+
+    @JsonProperty("titulo")
     public final String title;
+
+    @JsonProperty("descricao")
     public final String description;
 
     public SaveNotificationDto(
@@ -19,6 +26,7 @@ public class SaveNotificationDto {
         this.title = title;
         this.description = description;
     }
+
 
     @Override
     public String toString() {

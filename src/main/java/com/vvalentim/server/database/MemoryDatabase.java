@@ -37,8 +37,8 @@ public class MemoryDatabase {
         this.onlineUsersObservable = FXCollections.observableArrayList();
 
         this.insertSuperUser(new User("JOAO VICTOR VALENTIM", "2099284", "administrador"));
-        this.insertUser(new User("FULANO DA SILVA", "1234567", "abcabcab"));
-        this.insertUser(new User("CICLANO SOUZA", "0000000", "senhaciclano"));
+        this.insertUser(new User("FULANO DA SILVA", "1234567", "qweqweqwe"));
+        this.insertUser(new User("CICLANO SOUZA", "0000000", "senhasenha"));
 
         this.notificationCategorySerialId = new AtomicInteger(1);
         this.notificationCategories = new ConcurrentHashMap<>();

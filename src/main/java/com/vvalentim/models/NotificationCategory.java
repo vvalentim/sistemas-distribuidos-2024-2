@@ -52,9 +52,6 @@ public class NotificationCategory {
 
     @Override
     public String toString() {
-        return "NotificationCategory{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return this.getName();
     }
 }

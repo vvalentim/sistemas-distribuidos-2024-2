@@ -50,7 +50,7 @@ public class LoginPage extends AbstractPage {
             if (payload instanceof ResponseLogin) {
                 ResponseLogin loginPayload = (ResponseLogin) payload;
                 ConnectionHandler.getInstance().setToken(loginPayload.token);
-                this.changePage(Page.MANAGE_USER_PAGE);
+                this.changePage(Page.LIST_MY_NOTIFICATIONS_PAGE);
                 return;
             }
 

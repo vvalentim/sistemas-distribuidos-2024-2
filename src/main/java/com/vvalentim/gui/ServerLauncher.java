@@ -33,10 +33,11 @@ public class ServerLauncher extends Application {
     }
 
     public void closeCallback() {
-        if (server.isAlive()) {
+        if (server != null && server.isAlive()) {
             server.close();
-            Platform.exit();
-            System.exit(0);
         }
+
+        Platform.exit();
+        System.exit(0);
     }
 }

@@ -15,6 +15,8 @@ public class MainLayer {
 
     private final StackPane root;
 
+    private AbstractPage body;
+
     private Page currentPage;
 
     public MainLayer() {
@@ -31,6 +33,10 @@ public class MainLayer {
         return this.root;
     }
 
+    public AbstractPage getBody() {
+        return this.body;
+    }
+
     public void loadPage(Page page) {
         if (page == currentPage) {
             return;
@@ -42,6 +48,7 @@ public class MainLayer {
             AbstractPage pane = (AbstractPage) constructor.newInstance();
 
             pane.setRoot(this);
+            this.body = pane;
             this.root.getChildren().setAll(pane);
             this.currentPage = page;
 

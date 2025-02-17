@@ -18,7 +18,6 @@ public class ClientLauncher extends Application {
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
 
         MainLayer root = new MainLayer();
-        // MainLayer root = new MainLayer(Page.LIST_CATEGORIES_PAGE);
 
         Scene scene = new Scene(root.getPane(), 800, 640);
         stage.setScene(scene);

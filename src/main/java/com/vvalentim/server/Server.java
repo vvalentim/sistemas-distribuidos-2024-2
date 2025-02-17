@@ -73,8 +73,6 @@ public class Server extends Thread {
     @Override
     public void run() {
         try {
-            Platform.startup(() -> {});
-
             System.out.println("Initializing server socket...");
 
             this.socket = new ServerSocket();
@@ -116,6 +114,8 @@ public class Server extends Thread {
     }
 
     public static void main(String[] args) throws IOException {
+        Platform.startup(() -> {});
+
         MemoryDatabase db = MemoryDatabase.getInstance();
         AddressPromptHelper addrHelper = new AddressPromptHelper();
 
