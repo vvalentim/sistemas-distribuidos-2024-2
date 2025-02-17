@@ -10,7 +10,8 @@ public enum ErrorType {
     USER_NOT_FOUND("Usuário não encontrado."),
     INCORRECT_CREDENTIALS("Credenciais incorretas."),
     NOTIFICATION_CATEGORY_NOT_FOUND("Categoria não encontrada."),
-    NOTIFICATION_CATEGORY_HAS_ASSOCIATION("Não foi possível excluir, a categoria já está alocada a um ou mais avisos.");
+    NOTIFICATION_CATEGORY_HAS_ASSOCIATION("Não foi possível excluir, a categoria já está alocada a um ou mais avisos."),
+    NOTIFICATION_NOT_FOUND("Aviso não encontrado");
 
     public final String message;
 

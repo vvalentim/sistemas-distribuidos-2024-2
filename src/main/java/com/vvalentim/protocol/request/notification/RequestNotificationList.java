@@ -27,6 +27,6 @@ public class RequestNotificationList extends RequestPayload {
     public boolean isValid() {
         return
                 User.validateUsername(this.token) &&
-                NotificationCategory.validateExistingId(this.categoryId);
+                NotificationCategory.validateId(this.categoryId);
     }
 }
