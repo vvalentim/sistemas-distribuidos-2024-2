@@ -6,7 +6,7 @@ Os pacotes *server* e *client* possuem as classes principais para inicializaçã
 
 Verifique se todas as dependências estão instaladas antes de executar o projeto.
 
-O pacote *gui* ainda não está funcional, portanto utilize a classe *Client* para execução do cliente na segunda entrega do projeto.
+O pacote *gui* já está funcional, portanto utilize a classe *ClientLauncher* e *ServerLauncher* para execução do projeto.
 
 # Como funciona
 

@@ -6,6 +6,7 @@ import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 
 public class RequestUserList extends RequestPayload {
+    @JsonProperty("token")
     public final String token;
 
     public RequestUserList(

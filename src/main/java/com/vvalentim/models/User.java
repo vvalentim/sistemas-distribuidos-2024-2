@@ -3,8 +3,13 @@ package com.vvalentim.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
+    @JsonProperty("nome")
     private String name;
+
+    @JsonProperty("ra")
     private String username;
+
+    @JsonProperty("senha")
     private String password;
 
     public User(

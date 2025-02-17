@@ -6,8 +6,13 @@ import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 
 final public class RequestUserCreate extends RequestPayload {
+    @JsonProperty("nome")
     public final String name;
+
+    @JsonProperty("ra")
     public final String username;
+
+    @JsonProperty("senha")
     public final String password;
 
     public RequestUserCreate(

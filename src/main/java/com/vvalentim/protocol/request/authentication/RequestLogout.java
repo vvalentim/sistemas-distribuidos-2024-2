@@ -5,6 +5,7 @@ import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 
 final public class RequestLogout extends RequestPayload {
+    @JsonProperty("token")
     public final String token;
 
     public RequestLogout(
