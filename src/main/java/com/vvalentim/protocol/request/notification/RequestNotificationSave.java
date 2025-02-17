@@ -2,6 +2,7 @@ package com.vvalentim.protocol.request.notification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vvalentim.models.Notification;
+import com.vvalentim.models.NotificationCategory;
 import com.vvalentim.models.SaveNotificationDto;
 import com.vvalentim.models.User;
 import com.vvalentim.protocol.request.RequestPayload;
@@ -25,6 +26,15 @@ public class RequestNotificationSave extends RequestPayload {
     }
 
     @Override
+    public String toString() {
+        return "RequestNotificationSave{" +
+                "token='" + token + '\'' +
+                ", notification=" + notification +
+                ", requestType='" + requestType + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean isValid() {
         if (this.notification == null) {
             return false;
@@ -32,7 +42,8 @@ public class RequestNotificationSave extends RequestPayload {
 
         return
                 User.validateUsername(this.token) &&
-                Notification.validateId(this.notification.categoryId) &&
+                Notification.validateId(this.notification.id) &&
+                NotificationCategory.validateExistingId(this.notification.categoryId) &&
                 Notification.validateTitle(this.notification.title) &&
                 Notification.validateDescription(this.notification.description);
     }

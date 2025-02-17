@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class MemoryDatabase {
     private final ConcurrentHashMap<String, User> users;
+    private final ConcurrentHashMap<String, List<Integer>> subscriptions;
     private final CopyOnWriteArraySet<String> superUsers;
     private final ConcurrentSkipListSet<String> onlineUsers;
 
@@ -26,6 +27,7 @@ public class MemoryDatabase {
 
     private MemoryDatabase() {
         this.users = new ConcurrentHashMap<>();
+        this.subscriptions = new ConcurrentHashMap<>();
         this.superUsers = new CopyOnWriteArraySet<>();
         this.onlineUsers = new ConcurrentSkipListSet<>();
 
@@ -44,7 +46,17 @@ public class MemoryDatabase {
         this.notificationSerialId = new AtomicInteger(1);
         this.notifications = new ConcurrentHashMap<>();
 
+        this.saveNotification(new Notification(
+            this.findNotificationCategory(1),
+            "EXEMPLO TITULO DO AVISO",
+            "Essa é a descrição de um aviso..."
+        ));
 
+        this.saveNotification(new Notification(
+            this.findNotificationCategory(1),
+            "OUTRO TITULO",
+            "Essa é a OUTRA descrição de um aviso..."
+        ));
     }
 
     private static class LazyHolder {
@@ -77,6 +89,7 @@ public class MemoryDatabase {
 
     public void insertUser(User user) {
         this.users.put(user.getUsername(), user);
+        this.subscriptions.put(user.getUsername(), new ArrayList<>());
     }
 
     public void insertSuperUser(User user) {
@@ -90,6 +103,7 @@ public class MemoryDatabase {
 
     public void deleteUser(String username) {
         this.users.remove(username);
+        this.subscriptions.remove(username);
         this.superUsers.removeIf(key -> key.equals(username));
         this.onlineUsers.removeIf(key -> key.equals(username));
     }
@@ -180,4 +194,39 @@ public class MemoryDatabase {
         this.notifications.remove(id);
     }
     /* End NOTIFICATION methods */
+
+    /* Start SUBSCRIPTION methods */
+    public void subscribeOnCategory(String username, int categoryId) {
+        List<Integer> userSubscriptions = this.subscriptions.get(username);
+
+        if (userSubscriptions != null && !userSubscriptions.contains(categoryId)) {
+            userSubscriptions.add(categoryId);
+        }
+    }
+
+    public void unsubscribeFromCategory(String username, int categoryId) {
+        List<Integer> userSubscriptions = this.subscriptions.get(username);
+
+        if (userSubscriptions != null) {
+            userSubscriptions.removeIf(id -> id == categoryId);
+        }
+    }
+
+    public List<Integer> fetchUserSubscribedCategories(String username) {
+        return this.subscriptions.get(username);
+    }
+
+    public List<Notification> fetchUserNotifications(String username) {
+        List<Integer> userSubscriptions = this.subscriptions.get(username);
+        List<Notification> notifications = new ArrayList<>();
+
+        if (userSubscriptions != null) {
+            userSubscriptions.forEach(categoryId -> {
+                notifications.addAll(this.fetchNotificationsWithCategory(categoryId));
+            });
+        }
+
+        return notifications;
+    }
+    /* End SUBSCRIPTION methods*/
 }

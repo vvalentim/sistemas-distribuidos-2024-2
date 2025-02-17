@@ -4,6 +4,10 @@ import com.vvalentim.helpers.AddressPromptHelper;
 import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.server.commands.authentication.LoginCommand;
 import com.vvalentim.server.commands.authentication.LogoutCommand;
+import com.vvalentim.server.commands.notification.NotificationDeleteCommand;
+import com.vvalentim.server.commands.notification.NotificationFindCommand;
+import com.vvalentim.server.commands.notification.NotificationListCommand;
+import com.vvalentim.server.commands.notification.NotificationSaveCommand;
 import com.vvalentim.server.commands.notificationCategories.NotificationCategoryDeleteCommand;
 import com.vvalentim.server.commands.notificationCategories.NotificationCategoryFindCommand;
 import com.vvalentim.server.commands.notificationCategories.NotificationCategoryListCommand;
@@ -15,7 +19,7 @@ import java.io.IOException;
 import java.net.*;
 
 public class Server extends Thread {
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     private final String hostname;
 
@@ -49,6 +53,11 @@ public class Server extends Thread {
         this.requestCommandFactory.addCommand(RequestType.NOTIFICATION_CATEGORY_LIST, NotificationCategoryListCommand.class);
         this.requestCommandFactory.addCommand(RequestType.NOTIFICATION_CATEGORY_FIND, NotificationCategoryFindCommand.class);
         this.requestCommandFactory.addCommand(RequestType.NOTIFICATION_CATEGORY_DELETE, NotificationCategoryDeleteCommand.class);
+
+        this.requestCommandFactory.addCommand(RequestType.NOTIFICATION_SAVE, NotificationSaveCommand.class);
+        this.requestCommandFactory.addCommand(RequestType.NOTIFICATION_LIST, NotificationListCommand.class);
+        this.requestCommandFactory.addCommand(RequestType.NOTIFICATION_FIND, NotificationFindCommand.class);
+        this.requestCommandFactory.addCommand(RequestType.NOTIFICATION_DELETE, NotificationDeleteCommand.class);
     }
 
     @Override

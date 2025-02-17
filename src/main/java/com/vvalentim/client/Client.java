@@ -17,8 +17,8 @@ public class Client {
         try {
             AddressPromptHelper addrHelper = new AddressPromptHelper();
 
-            socket = new Socket(addrHelper.getAddress(), addrHelper.getPort());
-            // socket = new Socket("127.0.0.1", 5200);
+            // socket = new Socket(addrHelper.getAddress(), addrHelper.getPort());
+            socket = new Socket("127.0.0.1", 5200);
             output = new PrintWriter(socket.getOutputStream(), true);
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
