@@ -5,6 +5,7 @@ import com.vvalentim.client.ConnectionHandler;
 import com.vvalentim.client.MessageParser;
 import com.vvalentim.client.services.MessageService;
 import com.vvalentim.gui.layout.MainLayer;
+import com.vvalentim.gui.pages.Page;
 import com.vvalentim.protocol.request.authentication.RequestLogout;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,6 +18,7 @@ public class ClientLauncher extends Application {
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
 
         MainLayer root = new MainLayer();
+        // MainLayer root = new MainLayer(Page.LIST_CATEGORIES_PAGE);
 
         Scene scene = new Scene(root.getPane(), 800, 640);
         stage.setScene(scene);
@@ -29,7 +31,7 @@ public class ClientLauncher extends Application {
         Platform.setImplicitExit(false);
         Platform.runLater(() -> {
             stage.show();
-            stage.requestFocus();
+            root.getPane().requestFocus();
         });
     }
 

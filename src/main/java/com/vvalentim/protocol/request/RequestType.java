@@ -10,7 +10,7 @@ import com.vvalentim.protocol.request.notificationCategories.RequestNotification
 import com.vvalentim.protocol.request.notificationCategories.RequestNotificationCategoryFind;
 import com.vvalentim.protocol.request.notificationCategories.RequestNotificationCategoryList;
 import com.vvalentim.protocol.request.notificationCategories.RequestNotificationCategorySave;
-import com.vvalentim.protocol.request.subscription.RequestSignupOnCategory;
+import com.vvalentim.protocol.request.subscription.RequestSubscribeToCategory;
 import com.vvalentim.protocol.request.subscription.RequestSubscribedCategories;
 import com.vvalentim.protocol.request.subscription.RequestUnsubscribeFromCategory;
 import com.vvalentim.protocol.request.subscription.RequestUserNotifications;
@@ -36,7 +36,7 @@ public enum RequestType {
     NOTIFICATION_FIND("localizarAviso", RequestNotificationFind.class),
     NOTIFICATION_DELETE("excluirAviso", RequestNotificationDelete.class),
 
-    SUBSCRIPTION_SIGNUP_CATEGORY("cadastrarUsuarioCategoria", RequestSignupOnCategory.class),
+    SUBSCRIPTION_SUBSCRIBE_CATEGORY("cadastrarUsuarioCategoria", RequestSubscribeToCategory.class),
     SUBSCRIPTION_LIST_CATEGORIES("listarUsuarioCategorias", RequestSubscribedCategories.class),
     SUBSCRIPTION_UNSUBSCRIBE_CATEGORY("descadastrarUsuarioCategoria", RequestUnsubscribeFromCategory.class),
     SUBSCRIPTION_USER_NOTIFICATIONS("listarUsuarioAvisos", RequestUserNotifications.class);

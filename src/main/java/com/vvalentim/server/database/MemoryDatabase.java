@@ -20,7 +20,7 @@ public class MemoryDatabase {
     private final ConcurrentHashMap<String, User> users;
     private final ConcurrentHashMap<String, List<Integer>> subscriptions;
     private final CopyOnWriteArraySet<String> superUsers;
-    private final List<String> onlineUsers;
+    private final ConcurrentSkipListSet<String> onlineUsers;
     private final ObservableList<String> onlineUsersObservable;
 
     private final AtomicInteger notificationCategorySerialId;
@@ -33,7 +33,7 @@ public class MemoryDatabase {
         this.users = new ConcurrentHashMap<>();
         this.subscriptions = new ConcurrentHashMap<>();
         this.superUsers = new CopyOnWriteArraySet<>();
-        this.onlineUsers = new ArrayList<>();
+        this.onlineUsers = new ConcurrentSkipListSet<>();
         this.onlineUsersObservable = FXCollections.observableArrayList();
 
         this.insertSuperUser(new User("JOAO VICTOR VALENTIM", "2099284", "administrador"));
@@ -124,13 +124,21 @@ public class MemoryDatabase {
             return false;
         }
 
-        Platform.runLater(() -> this.onlineUsersObservable.add(username));
+        try {
+            Platform.runLater(() -> this.onlineUsersObservable.add(username));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         return this.onlineUsers.add(username);
     }
 
     public synchronized void logout(String username) {
-        Platform.runLater(() -> this.onlineUsersObservable.removeIf(username::equals));
+        try {
+            Platform.runLater(() -> this.onlineUsersObservable.removeIf(username::equals));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         this.onlineUsers.removeIf(username::equals);
     }
@@ -163,6 +171,10 @@ public class MemoryDatabase {
     }
 
     public void deleteNotificationCategory(int id) {
+        this.subscriptions.values().forEach(categories -> {
+            categories.removeIf(categoryId -> categoryId == id);
+        });
+
         this.notificationCategories.remove(id);
     }
     /* End NOTIFICATION CATEGORY methods */

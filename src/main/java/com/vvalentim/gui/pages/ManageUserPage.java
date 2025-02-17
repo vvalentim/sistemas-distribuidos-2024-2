@@ -125,7 +125,7 @@ public class ManageUserPage extends AbstractPage {
 
     private HBox createBodyWrapper() {
         this.addSidebarNavButton("Meu cadastro", Page.MANAGE_USER_PAGE);
-        this.addSidebarNavButton("Listar categorias", Page.LIST_CATEGORIES_PAGE);
+        this.addSidebarNavButton("Categorias", Page.LIST_CATEGORIES_PAGE);
 
         return new HBox(15, createSidebar(), createContent());
     }

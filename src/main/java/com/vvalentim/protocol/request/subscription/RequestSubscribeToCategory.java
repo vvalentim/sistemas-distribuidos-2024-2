@@ -6,7 +6,7 @@ import com.vvalentim.models.User;
 import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
 
-public class RequestSignupOnCategory extends RequestPayload {
+public class RequestSubscribeToCategory extends RequestPayload {
     @JsonProperty("token")
     public final String token;
 
@@ -16,12 +16,12 @@ public class RequestSignupOnCategory extends RequestPayload {
     @JsonProperty("categoria")
     public final int categoryId;
 
-    public RequestSignupOnCategory(
+    public RequestSubscribeToCategory(
         @JsonProperty("token") String token,
         @JsonProperty("ra") String username,
         @JsonProperty("categoria") int categoryId
     ) {
-        super(RequestType.SUBSCRIPTION_SIGNUP_CATEGORY);
+        super(RequestType.SUBSCRIPTION_SUBSCRIBE_CATEGORY);
 
         this.token = token;
         this.username = username;

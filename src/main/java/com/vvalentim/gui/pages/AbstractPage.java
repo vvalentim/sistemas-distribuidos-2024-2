@@ -35,6 +35,10 @@ abstract public class AbstractPage extends StackPane {
         this.build();
     }
 
+    final public Stage getStage() {
+        return (Stage) this.getScene().getWindow();
+    }
+
     final public void addSidebarNavButton(String label, Page page) {
         this.sidebarNavButtons.put(label, page);
     }

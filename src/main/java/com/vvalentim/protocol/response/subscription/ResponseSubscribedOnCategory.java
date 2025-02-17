@@ -5,14 +5,14 @@ import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.protocol.response.ResponsePayload;
 import com.vvalentim.protocol.response.ResponseStatus;
 
-public class ResponseSignupOnCategory extends ResponsePayload {
+public class ResponseSubscribedOnCategory extends ResponsePayload {
     @JsonProperty("mensagem")
     public final String message;
 
-    public ResponseSignupOnCategory(
+    public ResponseSubscribedOnCategory(
         @JsonProperty("mensagem") String message
     ) {
-        super(ResponseStatus.CREATED, RequestType.SUBSCRIPTION_SIGNUP_CATEGORY.jsonKey);
+        super(ResponseStatus.CREATED, RequestType.SUBSCRIPTION_SUBSCRIBE_CATEGORY.jsonKey);
 
         this.message = message;
     }
