@@ -15,7 +15,6 @@ import com.vvalentim.protocol.response.ResponsePayload;
 import com.vvalentim.protocol.response.errors.ResponseGenericError;
 import com.vvalentim.protocol.response.notification.ResponseNotificationSaved;
 import com.vvalentim.protocol.response.notificationCategories.ResponseNotificationCategoryList;
-import com.vvalentim.protocol.response.notificationCategories.ResponseNotificationCategorySaved;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
@@ -60,7 +59,7 @@ public class AddNotificationPage extends AbstractPage {
             try {
                 if (payload instanceof ResponseNotificationCategoryList) {
                     ResponseNotificationCategoryList categoriesPayload = (ResponseNotificationCategoryList) payload;
-                    this.observableCategories.addAll(categoriesPayload.categories);
+                    this.observableCategories.setAll(categoriesPayload.categories);
 
                     if (!this.observableCategories.isEmpty()) {
                         this.choiceCategories.getSelectionModel().selectFirst();

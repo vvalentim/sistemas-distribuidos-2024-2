@@ -166,6 +166,9 @@ public class MemoryDatabase {
             return;
         }
 
+        this.fetchNotificationsWithCategory(category.getId())
+            .forEach(notification -> notification.setCategory(category));
+
         // Update when the object already exists
         this.notificationCategories.replace(category.getId(), category);
     }

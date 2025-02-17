@@ -51,18 +51,19 @@ public class EditNotificationPage extends AbstractPage {
     }
 
     public void selectCategory() {
-        if (this.choiceCategories.getSelectionModel().getSelectedItem() != null) {
-            return;
-        }
-
         int selection = IntStream.range(0, this.observableCategories.size())
                 .filter(
-                    selectionIndex -> this.observableCategories.get(selectionIndex).getName().equals(this.notification.getCategory().getName())
+                    selectionIndex -> {
+                        NotificationCategory category = this.observableCategories.get(selectionIndex);
+                        NotificationCategory notificationCategory = this.notification.getCategory();
+
+                        return category.getName().equals(notificationCategory.getName());
+                    }
                 )
                 .findFirst()
-                .orElse(0);
+                .orElse(-1);
 
-        if (selection != 0) {
+        if (selection != -1) {
             this.choiceCategories.getSelectionModel().select(selection);
         }
     }
@@ -87,7 +88,7 @@ public class EditNotificationPage extends AbstractPage {
             try {
                 if (payload instanceof ResponseNotificationCategoryList) {
                     ResponseNotificationCategoryList categoriesPayload = (ResponseNotificationCategoryList) payload;
-                    this.observableCategories.addAll(categoriesPayload.categories);
+                    this.observableCategories.setAll(categoriesPayload.categories);
 
                     if (!this.observableCategories.isEmpty()) {
                         this.selectCategory();
