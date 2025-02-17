@@ -38,7 +38,7 @@ public enum RequestType {
 
     SUBSCRIPTION_SIGNUP_CATEGORY("cadastrarUsuarioCategoria", RequestSignupOnCategory.class),
     SUBSCRIPTION_LIST_CATEGORIES("listarUsuarioCategorias", RequestSubscribedCategories.class),
-    SUBSCRIPTION_UNSUBSCRIBE_CATEGORY("descadastrarUsuarioCategorias", RequestUnsubscribeFromCategory.class),
+    SUBSCRIPTION_UNSUBSCRIBE_CATEGORY("descadastrarUsuarioCategoria", RequestUnsubscribeFromCategory.class),
     SUBSCRIPTION_USER_NOTIFICATIONS("listarUsuarioAvisos", RequestUserNotifications.class);
 
     public final String jsonKey;

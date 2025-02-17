@@ -201,6 +201,7 @@ public class MemoryDatabase {
 
         if (userSubscriptions != null && !userSubscriptions.contains(categoryId)) {
             userSubscriptions.add(categoryId);
+            Collections.sort(userSubscriptions);
         }
     }
 

@@ -12,6 +12,10 @@ import com.vvalentim.server.commands.notificationCategories.NotificationCategory
 import com.vvalentim.server.commands.notificationCategories.NotificationCategoryFindCommand;
 import com.vvalentim.server.commands.notificationCategories.NotificationCategoryListCommand;
 import com.vvalentim.server.commands.notificationCategories.NotificationCategorySaveCommand;
+import com.vvalentim.server.commands.subscription.ListSubscribedCategoriesCommand;
+import com.vvalentim.server.commands.subscription.ListUserNotificationsCommand;
+import com.vvalentim.server.commands.subscription.SignupOnCategoryCommand;
+import com.vvalentim.server.commands.subscription.UnsubscribeFromCategoryCommand;
 import com.vvalentim.server.commands.users.*;
 import com.vvalentim.server.database.MemoryDatabase;
 
@@ -58,6 +62,11 @@ public class Server extends Thread {
         this.requestCommandFactory.addCommand(RequestType.NOTIFICATION_LIST, NotificationListCommand.class);
         this.requestCommandFactory.addCommand(RequestType.NOTIFICATION_FIND, NotificationFindCommand.class);
         this.requestCommandFactory.addCommand(RequestType.NOTIFICATION_DELETE, NotificationDeleteCommand.class);
+
+        this.requestCommandFactory.addCommand(RequestType.SUBSCRIPTION_SIGNUP_CATEGORY, SignupOnCategoryCommand.class);
+        this.requestCommandFactory.addCommand(RequestType.SUBSCRIPTION_LIST_CATEGORIES, ListSubscribedCategoriesCommand.class);
+        this.requestCommandFactory.addCommand(RequestType.SUBSCRIPTION_UNSUBSCRIBE_CATEGORY, UnsubscribeFromCategoryCommand.class);
+        this.requestCommandFactory.addCommand(RequestType.SUBSCRIPTION_USER_NOTIFICATIONS, ListUserNotificationsCommand.class);
     }
 
     @Override
