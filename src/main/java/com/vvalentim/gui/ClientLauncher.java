@@ -20,7 +20,7 @@ public class ClientLauncher extends Application {
 
         Scene scene = new Scene(root.getPane(), 800, 640);
         stage.setScene(scene);
-        stage.setTitle("EP3 - Sistemas Distribuídos");
+        stage.setTitle("Cliente Sistemas Distribuídos");
 
         stage.setResizable(false);
 

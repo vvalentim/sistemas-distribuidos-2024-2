@@ -3,6 +3,9 @@ package com.vvalentim.server.database;
 import com.vvalentim.models.Notification;
 import com.vvalentim.models.NotificationCategory;
 import com.vvalentim.models.User;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +20,8 @@ public class MemoryDatabase {
     private final ConcurrentHashMap<String, User> users;
     private final ConcurrentHashMap<String, List<Integer>> subscriptions;
     private final CopyOnWriteArraySet<String> superUsers;
-    private final ConcurrentSkipListSet<String> onlineUsers;
+    private final List<String> onlineUsers;
+    private final ObservableList<String> onlineUsersObservable;
 
     private final AtomicInteger notificationCategorySerialId;
     private final ConcurrentHashMap<Integer, NotificationCategory> notificationCategories;
@@ -29,7 +33,8 @@ public class MemoryDatabase {
         this.users = new ConcurrentHashMap<>();
         this.subscriptions = new ConcurrentHashMap<>();
         this.superUsers = new CopyOnWriteArraySet<>();
-        this.onlineUsers = new ConcurrentSkipListSet<>();
+        this.onlineUsers = new ArrayList<>();
+        this.onlineUsersObservable = FXCollections.observableArrayList();
 
         this.insertSuperUser(new User("JOAO VICTOR VALENTIM", "2099284", "administrador"));
         this.insertUser(new User("FULANO DA SILVA", "1234567", "abcabcab"));
@@ -70,6 +75,10 @@ public class MemoryDatabase {
         return LazyHolder.INSTANCE;
     }
 
+    public ObservableList<String> getOnlineUsersObservable() {
+        return this.onlineUsersObservable;
+    }
+
     /* Start USER methods */
     public User findUser(String username) {
         return this.users.get(username);
@@ -77,12 +86,6 @@ public class MemoryDatabase {
 
     public List<User> fetchAllUsers() {
         List<User> users = new ArrayList<>(this.users.values());
-
-        return Collections.unmodifiableList(users);
-    }
-
-    public List<String> fetchOnlineUsers() {
-        List<String> users = new ArrayList<>(this.onlineUsers);
 
         return Collections.unmodifiableList(users);
     }
@@ -102,10 +105,10 @@ public class MemoryDatabase {
     }
 
     public void deleteUser(String username) {
+        this.logout(username);
         this.users.remove(username);
         this.subscriptions.remove(username);
-        this.superUsers.removeIf(key -> key.equals(username));
-        this.onlineUsers.removeIf(key -> key.equals(username));
+        this.superUsers.removeIf(token -> token.equals(username));
     }
 
     public boolean isSuperUser(String username) {
@@ -113,15 +116,23 @@ public class MemoryDatabase {
     }
 
     public boolean isOnline(String username) {
-        return this.onlineUsers.contains(username);
+        return this.onlineUsersObservable.contains(username);
     }
 
-    public boolean login(String username) {
+    public synchronized boolean login(String username) {
+        if (this.onlineUsers.contains(username)) {
+            return false;
+        }
+
+        Platform.runLater(() -> this.onlineUsersObservable.add(username));
+
         return this.onlineUsers.add(username);
     }
 
-    public boolean logout(String username) {
-        return this.onlineUsers.remove(username);
+    public synchronized void logout(String username) {
+        Platform.runLater(() -> this.onlineUsersObservable.removeIf(username::equals));
+
+        this.onlineUsers.removeIf(username::equals);
     }
     /* End USER methods */
 

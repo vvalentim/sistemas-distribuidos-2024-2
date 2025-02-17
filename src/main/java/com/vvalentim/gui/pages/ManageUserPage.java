@@ -22,7 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-public class ManageUser extends AbstractPage {
+public class ManageUserPage extends AbstractPage {
     private MessageService fetchUserService;
     private MessageService updateUserService;
     private MessageService deleteUserService;

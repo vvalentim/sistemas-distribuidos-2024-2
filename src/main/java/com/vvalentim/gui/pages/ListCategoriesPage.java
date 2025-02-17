@@ -20,7 +20,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class ListCategories extends AbstractPage {
+public class ListCategoriesPage extends AbstractPage {
     private MessageService fetchCategoriesService;
     private MessageParser parser;
 
@@ -77,10 +77,10 @@ public class ListCategories extends AbstractPage {
 
         this.categories = FXCollections.observableArrayList();
         this.categoriesListView = new ListView<>(this.categories);
-        categoriesListView.setMinHeight(200);
-        categoriesListView.setCellFactory(category -> new CategoryListItem());
+        this.categoriesListView.setMinHeight(200);
+        this.categoriesListView.setCellFactory(category -> new CategoryListItem());
 
-        var contents = new VBox(30, title, categoriesListView);
+        var contents = new VBox(30, title, this.categoriesListView);
         contents.setPadding(new Insets(20, 20, 20, 20));
         contents.setFillWidth(true);
 

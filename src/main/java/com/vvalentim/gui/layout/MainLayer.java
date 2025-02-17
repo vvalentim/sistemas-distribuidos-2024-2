@@ -18,9 +18,13 @@ public class MainLayer {
     private Page currentPage;
 
     public MainLayer() {
+        this(DEFAULT_PAGE);
+    }
+
+    public MainLayer(Page initialPage) {
         this.root = new StackPane();
 
-        this.loadPage(DEFAULT_PAGE);
+        this.loadPage(initialPage);
     }
 
     public StackPane getPane() {

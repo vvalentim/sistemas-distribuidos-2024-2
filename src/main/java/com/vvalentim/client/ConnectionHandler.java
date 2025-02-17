@@ -61,7 +61,7 @@ public class ConnectionHandler {
             }
         }
 
-        System.out.println("Server socket has been closed.");
+        System.out.println("Socket has been closed.");
     }
 
     public boolean isOpen() {
