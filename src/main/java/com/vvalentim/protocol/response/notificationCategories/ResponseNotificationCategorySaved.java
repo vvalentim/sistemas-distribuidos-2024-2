@@ -5,11 +5,11 @@ import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.protocol.response.ResponsePayload;
 import com.vvalentim.protocol.response.ResponseStatus;
 
-public class ResponseNotificationCategorySave extends ResponsePayload {
+public class ResponseNotificationCategorySaved extends ResponsePayload {
     @JsonProperty("mensagem")
     public final String message;
 
-    public ResponseNotificationCategorySave(
+    public ResponseNotificationCategorySaved(
         @JsonProperty("mensagem") String message
     ) {
         super(ResponseStatus.CREATED, RequestType.NOTIFICATION_CATEGORY_SAVE.jsonKey);

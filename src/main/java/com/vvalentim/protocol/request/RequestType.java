@@ -2,6 +2,10 @@ package com.vvalentim.protocol.request;
 
 import com.vvalentim.protocol.request.authentication.RequestLogin;
 import com.vvalentim.protocol.request.authentication.RequestLogout;
+import com.vvalentim.protocol.request.notification.RequestNotificationDelete;
+import com.vvalentim.protocol.request.notification.RequestNotificationFind;
+import com.vvalentim.protocol.request.notification.RequestNotificationList;
+import com.vvalentim.protocol.request.notification.RequestNotificationSave;
 import com.vvalentim.protocol.request.notificationCategories.RequestNotificationCategoryDelete;
 import com.vvalentim.protocol.request.notificationCategories.RequestNotificationCategoryFind;
 import com.vvalentim.protocol.request.notificationCategories.RequestNotificationCategoryList;
@@ -21,7 +25,12 @@ public enum RequestType {
     NOTIFICATION_CATEGORY_SAVE("salvarCategoria", RequestNotificationCategorySave.class),
     NOTIFICATION_CATEGORY_LIST("listarCategorias", RequestNotificationCategoryList.class),
     NOTIFICATION_CATEGORY_FIND("localizarCategoria", RequestNotificationCategoryFind.class),
-    NOTIFICATION_CATEGORY_DELETE("excluirCategoria", RequestNotificationCategoryDelete.class);
+    NOTIFICATION_CATEGORY_DELETE("excluirCategoria", RequestNotificationCategoryDelete.class),
+
+    NOTIFICATION_SAVE("salvarAviso", RequestNotificationSave.class),
+    NOTIFICATION_LIST("listarAvisos", RequestNotificationList.class),
+    NOTIFICATION_FIND("localizarAviso", RequestNotificationFind.class),
+    NOTIFICATION_DELETE("excluirAviso", RequestNotificationDelete.class);
 
     public final String jsonKey;
     public final Class<?> payloadType;

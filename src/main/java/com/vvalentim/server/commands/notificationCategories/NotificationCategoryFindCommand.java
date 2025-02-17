@@ -8,7 +8,7 @@ import com.vvalentim.protocol.response.errors.ErrorType;
 import com.vvalentim.protocol.response.errors.ResponseFailedValidation;
 import com.vvalentim.protocol.response.errors.ResponseResourceNotFound;
 import com.vvalentim.protocol.response.errors.ResponseUnauthorized;
-import com.vvalentim.protocol.response.notificationCategories.ResponseNotificationCategoryFind;
+import com.vvalentim.protocol.response.notificationCategories.ResponseNotificationCategoryFound;
 import com.vvalentim.server.commands.Command;
 import com.vvalentim.server.database.MemoryDatabase;
 
@@ -41,6 +41,6 @@ public class NotificationCategoryFindCommand extends Command {
             return;
         }
 
-        this.result = new ResponseNotificationCategoryFind(category);
+        this.result = new ResponseNotificationCategoryFound(category);
     }
 }

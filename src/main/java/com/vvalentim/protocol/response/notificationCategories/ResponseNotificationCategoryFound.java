@@ -6,11 +6,11 @@ import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.protocol.response.ResponsePayload;
 import com.vvalentim.protocol.response.ResponseStatus;
 
-public class ResponseNotificationCategoryFind extends ResponsePayload {
+public class ResponseNotificationCategoryFound extends ResponsePayload {
     @JsonProperty("categoria")
     public final NotificationCategory category;
 
-    public ResponseNotificationCategoryFind(
+    public ResponseNotificationCategoryFound(
         @JsonProperty("categoria") NotificationCategory category
     ) {
         super(ResponseStatus.CREATED, RequestType.NOTIFICATION_CATEGORY_FIND.jsonKey);

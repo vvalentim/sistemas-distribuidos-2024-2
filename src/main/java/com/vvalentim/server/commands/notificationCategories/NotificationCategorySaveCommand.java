@@ -8,7 +8,7 @@ import com.vvalentim.protocol.response.errors.ErrorType;
 import com.vvalentim.protocol.response.errors.ResponseFailedValidation;
 import com.vvalentim.protocol.response.errors.ResponseResourceNotFound;
 import com.vvalentim.protocol.response.errors.ResponseUnauthorized;
-import com.vvalentim.protocol.response.notificationCategories.ResponseNotificationCategorySave;
+import com.vvalentim.protocol.response.notificationCategories.ResponseNotificationCategorySaved;
 import com.vvalentim.server.commands.Command;
 import com.vvalentim.server.database.MemoryDatabase;
 
@@ -47,6 +47,6 @@ public class NotificationCategorySaveCommand extends Command {
 
         db.saveNotificationCategory(this.payload.category);
 
-        this.result = new ResponseNotificationCategorySave("Categoria salva com sucesso.");
+        this.result = new ResponseNotificationCategorySaved("Categoria salva com sucesso.");
     }
 }

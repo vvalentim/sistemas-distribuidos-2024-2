@@ -1,5 +1,6 @@
 package com.vvalentim.server.commands.notificationCategories;
 
+import com.vvalentim.models.Notification;
 import com.vvalentim.models.NotificationCategory;
 import com.vvalentim.protocol.request.RequestPayload;
 import com.vvalentim.protocol.request.RequestType;
@@ -8,9 +9,11 @@ import com.vvalentim.protocol.response.errors.ErrorType;
 import com.vvalentim.protocol.response.errors.ResponseFailedValidation;
 import com.vvalentim.protocol.response.errors.ResponseResourceNotFound;
 import com.vvalentim.protocol.response.errors.ResponseUnauthorized;
-import com.vvalentim.protocol.response.notificationCategories.ResponseNotificationCategoryDelete;
+import com.vvalentim.protocol.response.notificationCategories.ResponseNotificationCategoryDeleted;
 import com.vvalentim.server.commands.Command;
 import com.vvalentim.server.database.MemoryDatabase;
+
+import java.util.List;
 
 public class NotificationCategoryDeleteCommand extends Command {
     private final RequestNotificationCategoryDelete payload;
@@ -42,8 +45,15 @@ public class NotificationCategoryDeleteCommand extends Command {
             return;
         }
 
+        List<Notification> notificationsWithCategoryId = db.fetchNotificationsWithCategory(category.getId());
+
+        if (!notificationsWithCategoryId.isEmpty()) {
+            this.result = new ResponseResourceNotFound(RequestType.NOTIFICATION_CATEGORY_DELETE, ErrorType.NOTIFICATION_CATEGORY_HAS_ASSOCIATION);
+            return;
+        }
+
         db.deleteNotificationCategory(this.payload.categoryId);
 
-        this.result = new ResponseNotificationCategoryDelete("Exclusão realizada com sucesso.");
+        this.result = new ResponseNotificationCategoryDeleted("Exclusão realizada com sucesso.");
     }
 }

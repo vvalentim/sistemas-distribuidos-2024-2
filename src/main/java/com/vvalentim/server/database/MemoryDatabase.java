@@ -1,5 +1,6 @@
 package com.vvalentim.server.database;
 
+import com.vvalentim.models.Notification;
 import com.vvalentim.models.NotificationCategory;
 import com.vvalentim.models.User;
 
@@ -10,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class MemoryDatabase {
     private final ConcurrentHashMap<String, User> users;
@@ -18,6 +20,9 @@ public class MemoryDatabase {
 
     private final AtomicInteger notificationCategorySerialId;
     private final ConcurrentHashMap<Integer, NotificationCategory> notificationCategories;
+
+    private final AtomicInteger notificationSerialId;
+    private final ConcurrentHashMap<Integer, Notification> notifications;
 
     private MemoryDatabase() {
         this.users = new ConcurrentHashMap<>();
@@ -35,6 +40,11 @@ public class MemoryDatabase {
         this.saveNotificationCategory(new NotificationCategory("ESPORTES"));
         this.saveNotificationCategory(new NotificationCategory("CELEBRIDADES"));
         this.saveNotificationCategory(new NotificationCategory("POLITICA"));
+
+        this.notificationSerialId = new AtomicInteger(1);
+        this.notifications = new ConcurrentHashMap<>();
+
+
     }
 
     private static class LazyHolder {
@@ -131,4 +141,43 @@ public class MemoryDatabase {
         this.notificationCategories.remove(id);
     }
     /* End NOTIFICATION CATEGORY methods */
+
+    /* Start NOTIFICATION methods */
+    public Notification findNotification(int id) {
+        return this.notifications.get(id);
+    }
+
+    public List<Notification> fetchAllNotifications() {
+        List<Notification> notifications = new ArrayList<>(this.notifications.values());
+
+        return Collections.unmodifiableList(notifications);
+    }
+
+    public List<Notification> fetchNotificationsWithCategory(int categoryId) {
+        return this.notifications
+                .values()
+                .stream()
+                .filter(notification -> notification.getCategory().getId() == categoryId)
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+    public void saveNotification(Notification notification) {
+        // Insert when the object has no id
+        if (notification.getId() == 0) {
+            int newId = this.notificationSerialId.getAndIncrement();
+
+            notification.setId(newId);
+            this.notifications.put(newId, notification);
+
+            return;
+        }
+
+        // Update when the object already exists
+        this.notifications.replace(notification.getId(), notification);
+    }
+
+    public void deleteNotification(int id) {
+        this.notifications.remove(id);
+    }
+    /* End NOTIFICATION methods */
 }

@@ -5,11 +5,11 @@ import com.vvalentim.protocol.request.RequestType;
 import com.vvalentim.protocol.response.ResponsePayload;
 import com.vvalentim.protocol.response.ResponseStatus;
 
-public class ResponseNotificationCategoryDelete extends ResponsePayload {
+public class ResponseNotificationCategoryDeleted extends ResponsePayload {
     @JsonProperty("mensagem")
     public final String message;
 
-    public ResponseNotificationCategoryDelete(
+    public ResponseNotificationCategoryDeleted(
         @JsonProperty("mensagem") String message
     ) {
         super(ResponseStatus.CREATED, RequestType.NOTIFICATION_CATEGORY_DELETE.jsonKey);
