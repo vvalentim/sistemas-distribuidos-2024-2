@@ -293,6 +293,14 @@ public class ListCategoriesPage extends AbstractPage {
         btnRefresh.getStyleClass().add(Styles.ACCENT);
         btnRefresh.setOnMouseClicked(event -> this.runFetchService());
 
+        var btnAdd = new Button("Adicionar");
+        btnAdd.getStyleClass().add(Styles.SUCCESS);
+        btnAdd.setOnMouseClicked(event -> createModalAddCategory());
+
+        var btnEdit = new Button("Editar");
+        btnEdit.getStyleClass().add(Styles.ACCENT);
+        btnEdit.setOnMouseClicked(event -> createModalEditCategory(this.getSelectedCategory()));
+
         var btnDelete = new Button("Excluir");
         btnDelete.getStyleClass().add(Styles.DANGER);
         btnDelete.setOnMouseClicked(event -> {
@@ -311,14 +319,10 @@ public class ListCategoriesPage extends AbstractPage {
             }
         });
 
-        var btnAdd = new Button("Adicionar");
-        btnAdd.getStyleClass().add(Styles.SUCCESS);
-        btnAdd.setOnMouseClicked(event -> createModalAddCategory());
-
         var spacing = new Region();
         HBox.setHgrow(spacing, Priority.ALWAYS);
 
-        var contents = new HBox(10, btnAdd, btnDelete, spacing, btnRefresh);
+        var contents = new HBox(10, btnAdd, btnEdit, btnDelete, spacing, btnRefresh);
         contents.setAlignment(Pos.CENTER_RIGHT);
 
         HBox.setHgrow(contents, Priority.ALWAYS);
@@ -370,6 +374,28 @@ public class ListCategoriesPage extends AbstractPage {
 
         stage.setScene(scene);
         stage.setTitle("Adicionar categoria");
+        stage.setResizable(false);
+        stage.initOwner(this.getStage());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    private void createModalEditCategory(NotificationCategory category) {
+        if (category == null) {
+            ErrorAlert alert = new ErrorAlert("Selecione uma categoria.");
+            alert.showAndWait();
+            return;
+        }
+
+        Stage stage = new Stage();
+        MainLayer root = new MainLayer(Page.EDIT_CATEGORY_PAGE);
+        Scene scene = new Scene(root.getPane(), 360, 180);
+        EditCategoryPage page = (EditCategoryPage) root.getBody();
+
+        page.setCategory(category);
+
+        stage.setScene(scene);
+        stage.setTitle("Editar categoria");
         stage.setResizable(false);
         stage.initOwner(this.getStage());
         stage.initModality(Modality.APPLICATION_MODAL);

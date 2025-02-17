@@ -9,8 +9,11 @@ public enum Page {
     SIGNUP_PAGE(SignupPage.class),
 
     MANAGE_USER_PAGE(ManageUserPage.class),
+
     LIST_CATEGORIES_PAGE(ListCategoriesPage.class),
     ADD_CATEGORY_PAGE(AddCategoryPage.class),
+    EDIT_CATEGORY_PAGE(EditCategoryPage.class),
+
     LIST_NOTIFICATIONS_PAGE(ListNotificationsPage.class),
     LIST_MY_NOTIFICATIONS_PAGE(ListMyNotificationsPage.class),
     ADD_NOTIFICATION_PAGE(AddNotificationPage.class),
