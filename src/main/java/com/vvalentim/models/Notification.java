@@ -72,14 +72,15 @@ public class Notification {
         return id > 0;
     }
 
-    /* TODO: ADD VALIDATION RULES TO TITLE */
     public static boolean validateTitle(String title) {
-        return true;
+        return
+                title != null &&
+                title.length() <= 100 &&
+                title.matches("[A-Z ]+");
     }
 
-    /* TODO: ADD VALIDATION RULES TO DESCRIPTION */
     public static boolean validateDescription(String description) {
-        return true;
+        return description != null && description.length() <= 500;
     }
 
     @Override
