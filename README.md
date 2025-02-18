@@ -14,13 +14,17 @@ De acordo com o que foi discutido em sala, na primeira entrega o *Cliente* envia
 
 O *Servidor* deve detectar possíveis falhas em tempo de execução ou se o conteúdo da requisição não está de acordo com as regras do *Protocolo de Mensagens*. Por fim, deve responder com a mensagem apropriada (que estão documentadas no protocolo).
 
-O envio de mensagens será feito diretamente pelo terminal quando *Cliente* estiver em execução e a resposta  não precisa ser deserializada, apenas impressa no próprio terminal.
+O envio de mensagens será feito diretamente pelo terminal quando o *Cliente* estiver em execução e a resposta  não precisa ser deserializada, apenas impressa no próprio terminal.
+
+O envio de mensagens na terceira (última) entrega deverá ser feito por uma interface gráfica.
 
 # Protocolo e tipos de requisição
 
-De acordo com o protocolo, segue o formato em JSON para os diferentes tipos de requisições disponíveis para a primeira entrega.
+O protocolo deverá ser desenvolvido contando com a colaboração de todos os alunos em sala de aula, e as modificações necessárias para cada etapa devem ser decididas em conjunto e pela maioria.
 
-**Obs**: esse usuário já está cadastrado (*hardcoded*) em memória na inicialização do servidor.
+As regras de validação e detalhes específicos de cada operação devem constar no documento oficial do protocolo.
+
+Segue abaixo o exemplo com o formato em JSON para os diferentes tipos de requisições disponíveis.
 
 ### Cadastrar usuário
 
@@ -63,7 +67,7 @@ De acordo com o protocolo, segue o formato em JSON para os diferentes tipos de r
 {"operacao": "listarCategorias", "token": "2099284"}
 ```
 
-### Salvar categoria (APENAS ADMIN)
+### Adicionar ou editar categoria (APENAS ADMIN)
 ```
 {"operacao": "salvarCategoria", "token": "2099284", "categoria": {"id": "0", "nome": "ECONOMIA"}}
 ```
@@ -77,6 +81,45 @@ De acordo com o protocolo, segue o formato em JSON para os diferentes tipos de r
 {"operacao": "excluirCategoria", "token": "2099284", "id": 1}
 ```
 
+### Adicionar ou editar aviso (APENAS ADMIN)
+```
+{"operacao": "salvarAviso", "token": "2099284", "aviso": {"id": 0, "categoria": 1, "titulo": "TITULO", "descricao": "Descricao do aviso"}}
+```
+
+### Listagem de avisos
+```
+{"operacao": "listarAvisos", "token": "2099284", "categoria": 0}
+```
+
+### Localizar aviso
+```
+{"operacao": "localizarAviso", "token": "2099284", "id": 1}
+```
+
+### Excluir aviso
+```
+{"operacao": "excluirAviso", "token": "2099284", "id": 1}
+```
+
+### Cadastrar usuário em categoria de avisos
+```
+{"operacao": "cadastrarUsuarioCategoria", "token": "2099284", "ra": "2099284", "categoria": 1}
+```
+
+### Descadastrar usuário em categoria de avisos
+```
+{"operacao": "descadastrarUsuarioCategoria", "token": "2099284", "ra": "2099284", "categoria": 1}
+```
+
+### Listar categorias que o usuário está cadastrado
+```
+{"operacao": "listarUsuarioCategorias", "token": "2099284", "ra": "2099284"}
+```
+
+### Listar os avisos do usuário
+```
+{"operacao": "listarUsuarioAvisos", "token": "2099284", "ra": "2099284"}
+```
 
 ## Configuração e ambiente de desenvolvimento
 
